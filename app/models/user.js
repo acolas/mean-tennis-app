@@ -14,6 +14,11 @@ var mongoose = require('mongoose'),
 var UserSchema = new Schema({
     name: String,
     email: String,
+    rank: String,
+    phone: String,
+    club: String,
+    licence: String,
+    goal: String,
     username: {
         type: String,
         unique: true
