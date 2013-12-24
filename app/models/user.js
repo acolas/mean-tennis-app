@@ -14,13 +14,12 @@ var mongoose = require('mongoose'),
 var UserSchema = new Schema({
     firstName: String,
     lastName: String,
-    email: String,
     rank: String,
     phone: String,
     club: String,
     license: String,
     goal: String,
-    username: {
+    email: {
         type: String,
         unique: true
     },
@@ -70,12 +69,6 @@ UserSchema.path('email').validate(function(email) {
     if (authTypes.indexOf(this.provider) !== -1) return true;
     return email.length;
 }, 'Email cannot be blank');
-
-UserSchema.path('username').validate(function(username) {
-    // if you are authenticating by any of the oauth strategies, don't validate
-    if (authTypes.indexOf(this.provider) !== -1) return true;
-    return username.length;
-}, 'Username cannot be blank');
 
 UserSchema.path('hashed_password').validate(function(hashed_password) {
     // if you are authenticating by any of the oauth strategies, don't validate

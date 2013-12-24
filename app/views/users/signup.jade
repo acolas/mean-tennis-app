@@ -3,24 +3,19 @@ extends auth
 block auth
   form.signup.form-horizontal(action="/users", method="post")
     .control-group
-      label.control-label(for='name') Prénom
+      label.control-label(for='firstName') Prénom
       .controls
-        input#name(type='text', name="name", placeholder='Prénom', value=user.firstName)
+        input#firstName(type='text', name="firstName", placeholder='Prénom', value=user.firstName)
 
     .control-group
-      label.control-label(for='name') Nom
+      label.control-label(for='lastName') Nom
       .controls
-        input#name(type='text', name="name", placeholder='Nom', value=user.lastName)
+        input#lastName(type='text', name="lastName", placeholder='Nom', value=user.lastName)
 
     .control-group
       label.control-label(for='email') Email
       .controls
         input#email(type='text', name="email", placeholder='Email', value=user.email)
-
-    .control-group
-      label.control-label(for='username') Identifiant
-      .controls
-        input#username(type='text', name="username", placeholder='Identifiant', value=user.username)
 
     .control-group
       label.control-label(for='password') Mot de passe
@@ -35,7 +30,7 @@ block auth
     .control-group
       label.control-label(for='license') Licence
       .controls
-        input#club(type='text', name="Licence", placeholder='Licence', value=user.license)
+        input#license(type='text', name="Licence", placeholder='Licence', value=user.license)
 
     .control-group
       label.control-label(for='club') Club
@@ -48,7 +43,7 @@ block auth
         input#rank(type='text', name="rank", placeholder='Classement', value=user.rank)
 
     .control-group
-      label.control-label(for='goal') Club
+      label.control-label(for='goal') Objectif
       .controls
         input#goal(type='text', name="goal", placeholder='Objectif', value=user.goal)
 

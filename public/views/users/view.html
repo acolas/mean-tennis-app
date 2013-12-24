@@ -1,8 +1,75 @@
 <section data-ng-controller="UsersController" data-ng-init="findOne()">
-    <span>{{user.firsName}}</span>
-    <span>{{user.lastName}}</span>
-    <span>{{user.name}}</span>
-    <span>{{user.name}}</span>
-    <span>{{user.name}}</span>
-    <span>{{user.name}}</span>
+    <h2>Modifier mon compte : {{user.firstName}} {{user.lastName}}</h2>
+    <form class="form-horizontal" data-ng-submit="update()">
+        <div class="control-group">
+            <label class="control-label" for="firstname">Prénom</label>
+
+            <div class="controls">
+                <input type="text" data-ng-model="user.firstName" id="firstname" placeholder="Prénom" required>
+                </input>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="lastname">Nom</label>
+
+            <div class="controls">
+                <input type="text" data-ng-model="user.lastName" id="lastname" placeholder="Nom" required>
+                </input>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="email">Email</label>
+
+            <div class="controls">
+                <input type="text" data-ng-model="user.email" id="email" placeholder="Email" required>
+                </input>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="phone">Téléphone</label>
+
+            <div class="controls">
+                <input type="text" data-ng-model="user.phone" id="phone" placeholder="Téléphone">
+                </input>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="license">Licence</label>
+
+            <div class="controls">
+                <input type="text" data-ng-model="user.license" id="license" placeholder="Licence">
+                </input>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="club">Club</label>
+
+            <div class="controls">
+                <input type="text" data-ng-model="user.club" id="club" placeholder="Club">
+                </input>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="rank">Classement</label>
+
+            <div class="controls">
+                <input type="text" data-ng-model="user.rank" id="rank" placeholder="Classement">
+                </input>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="goal">Objectif</label>
+
+            <div class="controls">
+                <input type="text" data-ng-model="user.goal" id="goal" placeholder="Objectif">
+                </input>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <a href="/" class="btn btn-default">Retour</a>
+                <input type="submit" class="btn btn-primary">
+            </div>
+        </div>
+    </form>
 </section>
