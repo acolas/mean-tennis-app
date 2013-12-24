@@ -12,12 +12,13 @@ var mongoose = require('mongoose'),
  * User Schema
  */
 var UserSchema = new Schema({
-    name: String,
+    firstName: String,
+    lastName: String,
     email: String,
     rank: String,
     phone: String,
     club: String,
-    licence: String,
+    license: String,
     goal: String,
     username: {
         type: String,
@@ -51,11 +52,18 @@ var validatePresenceOf = function(value) {
 };
 
 // the below 4 validations only apply if you are signing up traditionally
-UserSchema.path('name').validate(function(name) {
+UserSchema.path('firstName').validate(function(firstName) {
     // if you are authenticating by any of the oauth strategies, don't validate
     if (authTypes.indexOf(this.provider) !== -1) return true;
-    return name.length;
-}, 'Name cannot be blank');
+    return firstName.length;
+}, 'firstName cannot be blank');
+
+// the below 4 validations only apply if you are signing up traditionally
+UserSchema.path('lastName').validate(function(lastName) {
+    // if you are authenticating by any of the oauth strategies, don't validate
+    if (authTypes.indexOf(this.provider) !== -1) return true;
+    return lastName.length;
+}, 'lastName cannot be blank');
 
 UserSchema.path('email').validate(function(email) {
     // if you are authenticating by any of the oauth strategies, don't validate

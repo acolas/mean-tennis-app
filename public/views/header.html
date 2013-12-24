@@ -1,7 +1,7 @@
 <div class="navbar-inner" data-ng-controller="HeaderController">
     <ul class="nav">
         <li>
-            <a class="brand" href="/">Home</a>
+            <a class="brand" href="/">Accueil</a>
         </li>
         <li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
             <a href="#!/{{item.link}}">{{item.title}}</a>
@@ -20,6 +20,7 @@
 				{{global.user.name}} <b class="caret"></b>
 			</a>
             <ul class="dropdown-menu">
+                <li><a href="/#!/users/{{global.user._id}}">Mon compte</a>
                 <li><a href="/signout">Déconnexion</a>
                 </li>
             </ul>

@@ -71,12 +71,14 @@ exports.create = function(req, res) {
  *  Show profile
  */
 exports.show = function(req, res) {
-    var user = req.profile;
+/*    var user = req.profile;
 
     res.render('users/show', {
         title: user.name,
         user: user
-    });
+    });*/
+    res.jsonp(req.user);
+
 };
 
 /**
