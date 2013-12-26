@@ -6,7 +6,7 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
         "link": "articles"
     }, {
         "title": "Saisir un score",
-        "link": "articles/create"
+        "link": "games/create"
     }, {
         "title": "Historique",
         "link": "articles/create"

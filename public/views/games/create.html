@@ -1,0 +1,33 @@
+<section data-ng-controller="ArticlesController">
+	<form class="form-horizontal" data-ng-submit="create()">
+		<div class="control-group">
+			<label class="control-label" for="homeUser">Joueur 1</label>
+			<div class="controls">
+				<input type="text" data-ng-model="homeUser" id="homeUser" placeholder="Joueur 1" required>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="homeScore">Score Joueur 1</label>
+			<div class="controls">
+				<input type="text" data-ng-model="homeScore" id="homeScore" placeholder="Score Joueur 1" required>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="extUser">Joueur 2</label>
+			<div class="controls">
+				<input type="text" data-ng-model="extUser" id="extUser" placeholder="Joueur 2" required>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="extScore">Score Joueur 2</label>
+			<div class="controls">
+				<input type="text" data-ng-model="extScore" id="extScore" placeholder="Score Joueur 2" required>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn">
+			</div>
+		</div>
+	</form>
+</section>
