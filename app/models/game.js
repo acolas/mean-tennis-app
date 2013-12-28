@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
+    UserSchema = mongoose.UserSchema,
     _ = require('underscore');
 
 
@@ -10,26 +11,42 @@ var mongoose = require('mongoose'),
  * Game Schema
  */
 var GameSchema = new Schema({
-    homeUser: String,
-    extUser: String,
-    homeScore: Number,
-    extScore: Number,
-    type: String,
+    me: String,
+    myScore: Number,
+    opponentUser: String,
+    opponentScore: Number,
+    created : {
+        type : Date,
+        default : Date.now
+    },
+    typeOfGame: String,
     official: Boolean,
-    points: Number
+    points: Number,
+    date: {
+        type : Date,
+        default : Date.now
+    }
 });
 
-GameSchema.path('homeScore').validate(function(homeScore) {
-    // if you are authenticating by any of the oauth strategies, don't validate
-    if (authTypes.indexOf(this.provider) !== -1) return true;
-    return homeScore.length;
-}, 'homeScore cannot be blank');
+GameSchema.path('myScore').validate(function(myScore) {
+    return myScore.length;
+}, 'myScore cannot be blank');
 
-GameSchema.path('extScore').validate(function(extScore) {
-    // if you are authenticating by any of the oauth strategies, don't validate
-    if (authTypes.indexOf(this.provider) !== -1) return true;
-    return extScore.length;
-}, 'extScore cannot be blank');
+GameSchema.path('opponentUser').validate(function(opponentUser) {
+    return opponentUser.length;
+}, 'opponentUser opponentUser be blank');
+
+GameSchema.path('opponentScore').validate(function(opponentScore) {
+    return opponentScore.length;
+}, 'opponentScore cannot be blank');
+
+GameSchema.path('typeOfGame').validate(function(typeOfGame) {
+    return typeOfGame.length;
+}, 'typeOfGame cannot be blank');
+
+GameSchema.path('date').validate(function(date) {
+    return date.length;
+}, 'date cannot be blank');
 
 
 

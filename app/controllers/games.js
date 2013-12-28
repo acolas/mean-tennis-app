@@ -24,8 +24,9 @@ exports.game = function(req, res, next, id) {
 exports.create = function(req, res) {
     var game = new Game(req.body);
     
-    article.save(function(err) {
+    game.save(function(err) {
         if (err) {
+             console.log('Caught exception: ' + err);
             return res.send('users/signup', {
                 errors: err.errors,
                 game: game

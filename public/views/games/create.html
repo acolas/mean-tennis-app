@@ -1,28 +1,66 @@
-<section data-ng-controller="ArticlesController">
+<section data-ng-controller="GamesController">
 	<form class="form-horizontal" data-ng-submit="create()">
+
+
 		<div class="control-group">
-			<label class="control-label" for="homeUser">Joueur 1</label>
 			<div class="controls">
-				<input type="text" data-ng-model="homeUser" id="homeUser" placeholder="Joueur 1" required>
+				{{this.global.user.firstName}} {{this.global.user.lastName}}
+			</div>
+		</div>
+
+
+    </div>
+
+		<div class="control-group">
+			<label class="control-label" for="date">Date de la rencontre</label>
+			<div class="controls">
+				<input type="date" data-ng-model="date" id="date" placeholder="Date de la rencontre" required>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="myScore">Mon score</label>
+			<div class="controls">
+				<input type="text" data-ng-model="myScore" id="myScore" placeholder="Mon score" required>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="homeScore">Score Joueur 1</label>
+			<label class="control-label" for="opponentUser">Mon adversaire</label>
 			<div class="controls">
-				<input type="text" data-ng-model="homeScore" id="homeScore" placeholder="Score Joueur 1" required>
+				<input type="text" data-ng-model="opponentUser" id="opponentUser" placeholder="Mon adversaire" required>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="extUser">Joueur 2</label>
+			<label class="control-label" for="opponentScore">Score de mon adversaire</label>
 			<div class="controls">
-				<input type="text" data-ng-model="extUser" id="extUser" placeholder="Joueur 2" required>
+				<input type="text" data-ng-model="opponentScore" id="opponentScore" placeholder="Score de mon adversaire" required>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="extScore">Score Joueur 2</label>
-			<div class="controls">
-				<input type="text" data-ng-model="extScore" id="extScore" placeholder="Score Joueur 2" required>
-			</div>
+			<label class="control-label" for="typeOfGame">Type de match</label>
+				<div class="controls">
+					<div class="input-group">
+				      <span class="input-group-addon">
+				        <input type="radio" data-ng-model="typeOfGame" name="typeOfGame" value="OneSet" checked> 1 set gagnant <br/>
+				        <input type="radio" data-ng-model="typeOfGame" name="typeOfGame" value="TwoSets"> 2 sets gagnants <br/>
+				        <input type="radio" data-ng-model="typeOfGame" name="typeOfGame" value="ThreeSets"> 3 sets gagnants <br/>
+				        <input type="radio" data-ng-model="typeOfGame" name="typeOfGame" value="TieBreak"> Tie-break <br/>
+				        <input type="radio" data-ng-model="typeOfGame" name="typeOfGame" value="MiniMatch"> Mini Match <br/>
+				        <input type="radio" data-ng-model="typeOfGame" name="typeOfGame" value="Other"> Autre <br/>
+				       </span>
+				    </div>
+				</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="official">Match officiel ?</label>
+				<div class="controls">
+					<div class="input-group">
+				      <span class="input-group-addon">
+				        <input type="radio" data-ng-model="official" name="official" value="no" checked> Non <br/>
+				        <input type="radio" data-ng-model="official" name="official" value="yes"> Oui <br/>
+ 					  </span>
+				    </div>
+				</div>
 		</div>
 		<div class="control-group">
 			<div class="controls">

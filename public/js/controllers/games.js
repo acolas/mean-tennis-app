@@ -3,20 +3,23 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
 
     $scope.create = function() {
         var game = new Games({
-            homeUser: this.homeUser,
-            extUser: this.extUser,
-            homeScore: this.homeScore,
-            extScore: this.extScore
+            me: this.global.user.email,
+            opponentUser: this.opponentUser,
+            myScore: this.myScore,
+            opponentScore: this.opponentScore,
+            typeOfGame: this.typeOfGame,
+            official: this.official,
+            date: this.date,
+            points: 42
         });
         game.$save(function(response) {
             $location.path("games/" + response._id);
         });
 
 
-        this.homeUser = "";
-        this.extUser = "";
-        this.homeScore =  "";
-        this.extScore = "";
+        this.opponentUser = "";
+        this.myScore =  "";
+        this.opponentScore = "";
         
     };
 
