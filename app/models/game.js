@@ -3,7 +3,6 @@
  */
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    UserSchema = mongoose.UserSchema,
     _ = require('underscore');
 
 
@@ -11,7 +10,6 @@ var mongoose = require('mongoose'),
  * Game Schema
  */
 var GameSchema = new Schema({
-    me: String,
     myScore: Number,
     opponentUser: String,
     opponentScore: Number,
@@ -25,6 +23,10 @@ var GameSchema = new Schema({
     date: {
         type : Date,
         default : Date.now
+    },
+    user: {
+        type: Schema.ObjectId,
+        ref: 'User'
     }
 });
 
@@ -48,6 +50,19 @@ GameSchema.path('date').validate(function(date) {
     return date.length;
 }, 'date cannot be blank');
 
-
+/**
+ * Statics
+ */
+GameSchema.statics = {
+    load: function(id, cb) {
+        this.findOne({
+            _id: id
+        }).populate('user', 'name email').exec(cb);
+    },
+    findByName: function (name, cb) {
+        this.find({ 
+            name: new RegExp(name, 'i') }, cb);
+    }
+};
 
 mongoose.model('Game', GameSchema);

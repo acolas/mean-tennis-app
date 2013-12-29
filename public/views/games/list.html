@@ -1,0 +1,28 @@
+<section data-ng-controller="GamesController" data-ng-init="find()">
+    <table class="table table-striped">
+        <tr data-ng-repeat="game in games">
+        <div data-ng-show="global.user._id == game.user._id">
+            <td>{{game.created | date:'medium'}}</td> 
+            <td>{{game.user.name}}</td>
+            <td><a data-ng-href="#!/game/{{game._id}}">{{game.myScore}}</a></td>
+            <div>{{game.date}}</div>
+        </div>
+        </tr>
+        <!-- On rows -->
+<tr class="active"><td>{{game.created | date:'medium'}}</td> </tr>
+<tr class="success"> <td>{{game.created | date:'medium'}}</td> </tr>
+<tr class="warning"> <td>{{game.created | date:'medium'}}</td> </tr>
+<tr class="danger"> <td>{{game.created | date:'medium'}}</td> </tr>
+
+<!-- On cells (`td` or `th`) -->
+<tr>
+  <td class="active">ds</td>
+  <td class="success">dqsqs</td>
+  <td class="warning">dsqdsq</td>
+  <td class="danger">.sqdsqdqsdsq</td>
+</tr>
+
+    </table>
+
+    <h1 data-ng-hide="!games || games.length">No games yet. <br> Why don't you <a href="/#!/games/create">Create One</a>?</h1>
+</section>

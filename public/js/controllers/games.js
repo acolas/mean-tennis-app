@@ -3,7 +3,6 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
 
     $scope.create = function() {
         var game = new Games({
-            me: this.global.user.email,
             opponentUser: this.opponentUser,
             myScore: this.myScore,
             opponentScore: this.opponentScore,
@@ -23,6 +22,22 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
         
     };
 
+
+
+    $scope.find = function() {
+        Games.query(function(games) {
+            $scope.games = games;
+        });
+    };
+
+
+    $scope.findOne = function() {
+        Games.get({
+            gameId: $routeParams.gameId
+        }, function(game) {
+            $scope.game = game;
+        });
+        };
  /*   $scope.remove = function(article) {
         if (article) {
             article.$remove();  

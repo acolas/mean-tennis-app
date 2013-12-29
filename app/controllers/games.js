@@ -18,15 +18,28 @@ exports.game = function(req, res, next, id) {
     });
 };
 
+
+/**
+ * Find games by username
+ */
+exports.findByName = function(req, res, next, id) {
+    Game.findByName(name, function(err, games) {
+        if (err) return next(err);
+        if (!games) return next(new Error('Failed to load game ' + games));
+        console.log(games);
+        next();
+    });
+};
+
 /**
  * Create a game
  */
 exports.create = function(req, res) {
     var game = new Game(req.body);
-    
+    game.user = req.user;
+
     game.save(function(err) {
         if (err) {
-             console.log('Caught exception: ' + err);
             return res.send('users/signup', {
                 errors: err.errors,
                 game: game
@@ -54,7 +67,7 @@ exports.update = function(req, res) {
  * Delete a game
  */
 exports.destroy = function(req, res) {
-    var game = req.gaùe;
+    var game = req.game;
 
     game.remove(function(err) {
         if (err) {

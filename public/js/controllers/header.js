@@ -9,7 +9,7 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
         "link": "games/create"
     }, {
         "title": "Historique",
-        "link": "articles/create"
+        "link": "games"
     }, {
         "title": "Règlement",
         "link": "articles/create"
