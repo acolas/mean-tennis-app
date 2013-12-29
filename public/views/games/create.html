@@ -27,13 +27,13 @@
 		<div class="control-group">
 			<label class="control-label" for="opponentUser">Mon adversaire</label>
 			<div class="controls">
-				<input type="text" data-ng-model="opponentUser" id="opponentUser" placeholder="Mon adversaire" required>
+				<input type="text" data-ng-model="opponent.user" id="opponentUser" placeholder="Mon adversaire" required>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="opponentScore">Score de mon adversaire</label>
 			<div class="controls">
-				<input type="text" data-ng-model="opponentScore" id="opponentScore" placeholder="Score de mon adversaire" required>
+				<input type="text" data-ng-model="opponent.score" id="opponentScore" placeholder="Score de mon adversaire" required>
 			</div>
 		</div>
 		<div class="control-group">
@@ -41,12 +41,12 @@
 				<div class="controls">
 					<div class="input-group">
 				      <span class="input-group-addon">
-				        <input type="radio" data-ng-model="typeOfGame" name="typeOfGame" value="OneSet" checked> 1 set gagnant <br/>
-				        <input type="radio" data-ng-model="typeOfGame" name="typeOfGame" value="TwoSets"> 2 sets gagnants <br/>
-				        <input type="radio" data-ng-model="typeOfGame" name="typeOfGame" value="ThreeSets"> 3 sets gagnants <br/>
-				        <input type="radio" data-ng-model="typeOfGame" name="typeOfGame" value="TieBreak"> Tie-break <br/>
-				        <input type="radio" data-ng-model="typeOfGame" name="typeOfGame" value="MiniMatch"> Mini Match <br/>
-				        <input type="radio" data-ng-model="typeOfGame" name="typeOfGame" value="Other"> Autre <br/>
+				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="OneSet" checked> 1 set gagnant <br/>
+				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="TwoSets"> 2 sets gagnants <br/>
+				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="ThreeSets"> 3 sets gagnants <br/>
+				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="TieBreak"> Tie-break <br/>
+				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="MiniMatch"> Mini Match <br/>
+				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="Other"> Autre <br/>
 				       </span>
 				    </div>
 				</div>
@@ -56,8 +56,8 @@
 				<div class="controls">
 					<div class="input-group">
 				      <span class="input-group-addon">
-				        <input type="radio" data-ng-model="official" name="official" value="no" checked> Non <br/>
-				        <input type="radio" data-ng-model="official" name="official" value="yes"> Oui <br/>
+				        <input type="radio" data-ng-model="details.official" name="official" value="no" checked> Non <br/>
+				        <input type="radio" data-ng-model="details.official" name="official" value="yes"> Oui <br/>
  					  </span>
 				    </div>
 				</div>

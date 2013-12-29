@@ -2,23 +2,32 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
     $scope.global = Global;
 
     $scope.create = function() {
+        this.victory = false;
+        if (this.myScore > this.opponent.score)
+            this.victory =true;
         var game = new Games({
-            opponentUser: this.opponentUser,
+            opponent: {
+                user: this.opponent.user,                
+                score: this.opponent.score
+            },
+            details: {
+                victory: this.victory,
+                typeOfGame: this.details.typeOfGame,
+                official: this.details.official,
+                points: 42
+            },
             myScore: this.myScore,
-            opponentScore: this.opponentScore,
-            typeOfGame: this.typeOfGame,
-            official: this.official,
-            date: this.date,
-            points: 42
+            date: this.date
         });
         game.$save(function(response) {
             $location.path("games/" + response._id);
         });
 
 
-        this.opponentUser = "";
+        this.opponent.user = "";
         this.myScore =  "";
-        this.opponentScore = "";
+        this.opponent.score = "";
+        this.victory = false;
         
     };
 

@@ -1,0 +1,17 @@
+<section data-ng-controller="GamesController" data-ng-init="findOne()">
+   
+    <span>{{game.date | date:'medium'}}</span>
+
+    <h2>{{game.user.firstName}} {{game.user.lastName}} - {{game.opponent.user}}</h2>
+    <h2>{{game.myScore}} - {{game.opponent.score}}</h2>
+    <div data-ng-show="global.user._id == game.user._id">
+        <a class="btn" href="/#!/game/{{game._id}}/edit">
+        	<i class="icon-edit"></i>
+        </a> 
+        <a class="btn" data-ng-click="remove();">
+            <i class="icon-trash"></i>
+        </a>
+    </div>
+
+    <span>{{game.created | date:'medium'}}</span>
+</section>

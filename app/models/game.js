@@ -11,15 +11,20 @@ var mongoose = require('mongoose'),
  */
 var GameSchema = new Schema({
     myScore: Number,
-    opponentUser: String,
-    opponentScore: Number,
+    opponent: { 
+        user: String,
+        score: Number
+    },
     created : {
         type : Date,
         default : Date.now
     },
-    typeOfGame: String,
-    official: Boolean,
-    points: Number,
+    details : {
+        typeOfGame: String,
+        official: Boolean,
+        points: Number,
+        victory: Boolean
+    },
     date: {
         type : Date,
         default : Date.now
@@ -34,15 +39,15 @@ GameSchema.path('myScore').validate(function(myScore) {
     return myScore.length;
 }, 'myScore cannot be blank');
 
-GameSchema.path('opponentUser').validate(function(opponentUser) {
+GameSchema.path('opponent.user').validate(function(opponentUser) {
     return opponentUser.length;
 }, 'opponentUser opponentUser be blank');
 
-GameSchema.path('opponentScore').validate(function(opponentScore) {
+GameSchema.path('opponent.score').validate(function(opponentScore) {
     return opponentScore.length;
-}, 'opponentScore cannot be blank');
+}, 'opponent.score cannot be blank');
 
-GameSchema.path('typeOfGame').validate(function(typeOfGame) {
+GameSchema.path('details.typeOfGame').validate(function(typeOfGame) {
     return typeOfGame.length;
 }, 'typeOfGame cannot be blank');
 
@@ -57,7 +62,7 @@ GameSchema.statics = {
     load: function(id, cb) {
         this.findOne({
             _id: id
-        }).populate('user', 'name email').exec(cb);
+        }).populate('user', 'firstName lastName email').exec(cb);
     },
     findByName: function (name, cb) {
         this.find({ 

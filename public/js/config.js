@@ -11,6 +11,9 @@ angular.module('mean').config(['$routeProvider',
         when('/games/create', {
             templateUrl: 'views/games/create.html'
         }).
+        when('/games/:gameId', {
+            templateUrl: 'views/games/view.html'
+        }).
         when('/articles/create', {
             templateUrl: 'views/articles/create.html'
         }).
