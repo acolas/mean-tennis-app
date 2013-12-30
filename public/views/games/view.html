@@ -1,9 +1,13 @@
 <section data-ng-controller="GamesController" data-ng-init="findOne()">
    
-    <span>{{game.date | date:'medium'}}</span>
-
-    <h2>{{game.user.firstName}} {{game.user.lastName}} - {{game.opponent.user}}</h2>
+    <h2>Match du {{game.date | date:'dd-MM-yyyy'}}</h2>
+    <h2>{{game.user.firstName}} {{game.user.lastName}} VS {{game.opponent.user}}</h2>
     <h2>{{game.myScore}} - {{game.opponent.score}}</h2>
+
+    <h2>Détails du match</h2>
+    <h3>Type de match : {{game.details.typeOfMatch}}</h3>
+    <h3>Officiel ? : {{game.details.official}}</h3>
+    <h3>Nombre de points obtenus : {{game.details.points}}</h3>
     <div data-ng-show="global.user._id == game.user._id">
         <a class="btn" href="/#!/game/{{game._id}}/edit">
         	<i class="icon-edit"></i>
@@ -13,5 +17,5 @@
         </a>
     </div>
 
-    <span>{{game.created | date:'medium'}}</span>
+    <span>Match enregistré le : {{game.created | date:'dd-MM-yyyy HH:mm'}}</span>
 </section>

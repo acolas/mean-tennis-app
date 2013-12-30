@@ -12,7 +12,7 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
         "link": "games"
     }, {
         "title": "Règlement",
-        "link": "articles/create"
+        "link": "rules"
     }];
     
     $scope.isCollapsed = false;

@@ -26,7 +26,6 @@ exports.findByName = function(req, res, next, id) {
     Game.findByName(name, function(err, games) {
         if (err) return next(err);
         if (!games) return next(new Error('Failed to load game ' + games));
-        console.log(games);
         next();
     });
 };
