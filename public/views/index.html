@@ -1,7 +1,31 @@
-<section data-ng-controller="IndexController">
+<section data-ng-controller="IndexController" data-ng-init="findByName()">
 	<h1>This is the tennis app dashboard</h1>
 
-<div ui-chart="someData" chart-options="pieChartOptions" ></div>
+<div ui-chart="[s2,s1]" chart-options="chartOptions" ></div>
 
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Date du match</th>
+                <th>Moi</th>
+                <th>Adversaire</th>
+                <th>Mon Score</th>
+                <th>Score de mon adversaire</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr data-ng-repeat="game in games"  ng-class="{'success': game.details.victory}">
+                    <td>{{game.date | date:'dd-MM-yyyy'}}</td> 
+                    <td>{{game.user.email}}</td>
+                    <td>{{game.opponent.user}}</td>
+                    <td>{{game.myScore}}</td>
+                    <td>{{game.opponent.score}}</td>
+                    <td><a data-ng-href="#!/games/{{game._id}}">Détails</a></td>
+            </tr>
+
+        </tbody>
+    </table>
 
 </section>

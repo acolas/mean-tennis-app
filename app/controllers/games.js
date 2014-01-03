@@ -18,17 +18,21 @@ exports.game = function(req, res, next, id) {
     });
 };
 
-
 /**
- * Find games by username
+ * Find games by user id
  */
-exports.findByName = function(req, res, next, id) {
-    Game.findByName(name, function(err, games) {
-        if (err) return next(err);
-        if (!games) return next(new Error('Failed to load game ' + games));
-        next();
+exports.findByName = function(req, res) {
+    Game.find({ user: req.user._id }).exec(function(err, games) {
+        if (err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            res.jsonp(games);
+        }
     });
 };
+
 
 /**
  * Create a game
