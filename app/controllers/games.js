@@ -94,7 +94,7 @@ exports.show = function(req, res) {
  * List of Games
  */
 exports.all = function(req, res) {
-    Game.find().sort('-created').populate('user', 'name email').exec(function(err, games) {
+    Game.find().sort({date: 'asc'}).populate('user', 'name email').exec(function(err, games) {
         if (err) {
             res.render('error', {
                 status: 500
