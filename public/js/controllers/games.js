@@ -67,45 +67,79 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
             $scope.game = game;
         });
         };
- /*   $scope.remove = function(article) {
-        if (article) {
-            article.$remove();  
 
-            for (var i in $scope.articles) {
-                if ($scope.articles[i] == article) {
-                    $scope.articles.splice(i, 1);
-                }
-            }
-        }
-        else {
-            $scope.article.$remove();
-            $location.path('articles');
-        }
+
+
+    $scope.showWeeks = true;
+    $scope.toggleWeeks = function () {
+        $scope.showWeeks = ! $scope.showWeeks;
     };
 
-    $scope.update = function() {
-        var article = $scope.article;
-        if (!article.updated) {
-            article.updated = [];
-        }
-        article.updated.push(new Date().getTime());
-
-        article.$update(function() {
-            $location.path('articles/' + article._id);
-        });
+    $scope.clear = function () {
+        $scope.dt = null;
     };
 
-    $scope.find = function() {
-        Articles.query(function(articles) {
-            $scope.articles = articles;
-        });
+    // Disable weekend selection
+    $scope.disabled = function(date, mode) {
+        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
     };
 
-    $scope.findOne = function() {
-        Articles.get({
-            articleId: $routeParams.articleId
-        }, function(article) {
-            $scope.article = article;
-        });
-    };*/
+    $scope.toggleMin = function() {
+        $scope.minDate = ( $scope.minDate ) ? null : new Date();
+    };
+    $scope.toggleMin();
+
+    $scope.open = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.opened = true;
+    };
+
+    $scope.dateOptions = {
+        'year-format': "'yy'",
+        'starting-day': 1
+    };
+
+    /*   $scope.remove = function(article) {
+           if (article) {
+               article.$remove();
+
+               for (var i in $scope.articles) {
+                   if ($scope.articles[i] == article) {
+                       $scope.articles.splice(i, 1);
+                   }
+               }
+           }
+           else {
+               $scope.article.$remove();
+               $location.path('articles');
+           }
+       };
+
+       $scope.update = function() {
+           var article = $scope.article;
+           if (!article.updated) {
+               article.updated = [];
+           }
+           article.updated.push(new Date().getTime());
+
+           article.$update(function() {
+               $location.path('articles/' + article._id);
+           });
+       };
+
+       $scope.find = function() {
+           Articles.query(function(articles) {
+               $scope.articles = articles;
+           });
+       };
+
+       $scope.findOne = function() {
+           Articles.get({
+               articleId: $routeParams.articleId
+           }, function(article) {
+               $scope.article = article;
+           });
+       };*/
 }]);

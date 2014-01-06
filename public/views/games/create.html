@@ -11,14 +11,25 @@
 
     </div>
 
-		<div class="control-group">
+		<!-- div class="control-group">
 			<label class="control-label" for="date">Date de la rencontre</label>
 			<div class="controls">
 				<input type="date" data-ng-model="date" id="date" placeholder="Date de la rencontre" required>
 			</div>
-		</div>
+		</div-->
 
-		<div class="control-group">
+        <div class="control-group">
+            <label class="control-label" for="date">Date de la rencontre</label>
+            <div class="controls">
+                    <input type="text" class="form-control" datepicker-popup="dd-MM-yyyy" ng-model="date" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button class="btn btn-default" ng-click="open($event)"><i class="icon icon-calendar"></i></button>
+              </span>
+             </div>
+        </div>
+
+
+        <div class="control-group">
 			<label class="control-label" for="myScore">Mon score</label>
 			<div class="controls">
 				<input type="text" data-ng-model="myScore" id="myScore" placeholder="Mon score" required>
