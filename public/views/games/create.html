@@ -21,7 +21,7 @@
         <div class="control-group">
             <label class="control-label" for="date">Date de la rencontre</label>
             <div class="controls">
-                    <input type="text" class="form-control" datepicker-popup="dd-MM-yyyy" ng-model="date" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                    <input type="text" class="form-control" datepicker-popup="dd-MM-yyyy" ng-model="date" is-open="opened" max="'2015-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
               <span class="input-group-btn">
                 <button class="btn btn-default" ng-click="open($event)"><i class="icon icon-calendar"></i></button>
               </span>
@@ -38,8 +38,9 @@
 		<div class="control-group">
 			<label class="control-label" for="opponentUser">Mon adversaire</label>
 			<div class="controls">
-				<input type="text" data-ng-model="opponent.user" id="opponentUser" placeholder="Mon adversaire" required>
-			</div>
+                <select class="form-control" id="opponentUser" data-ng-init="findUsers()" data-ng-model="opponent.user" ng-options="u.firstName for u in users" placeholder="Mon adversaire">
+                    <option value="" default selected>Choisir son adversaire</option><option></option></select>
+            </div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="opponentScore">Score de mon adversaire</label>

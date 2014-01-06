@@ -1,4 +1,4 @@
-angular.module('mean.games').controller('GamesController', ['$scope', '$routeParams', '$location', 'Global', 'Games', function ($scope, $routeParams, $location, Global, Games) {
+angular.module('mean.games').controller('GamesController', ['$scope', '$routeParams', '$location', 'Global', 'Games', 'Users', function ($scope, $routeParams, $location, Global, Games, Users) {
     $scope.global = Global;
   
     $scope.create = function() {
@@ -79,16 +79,6 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
         $scope.dt = null;
     };
 
-    // Disable weekend selection
-    $scope.disabled = function(date, mode) {
-        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-    };
-
-    $scope.toggleMin = function() {
-        $scope.minDate = ( $scope.minDate ) ? null : new Date();
-    };
-    $scope.toggleMin();
-
     $scope.open = function($event) {
         $event.preventDefault();
         $event.stopPropagation();
@@ -100,6 +90,23 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
         'year-format': "'yy'",
         'starting-day': 1
     };
+
+    $scope.findUsers = function () {
+        Users.query(function (users) {
+            $scope.users = [];
+
+            jQuery.each(users, function () {
+                if (Global.user._id !== this._id){
+                    $scope.users.push(this);
+                }
+            });
+
+        });
+    };
+
+    //$scope.users = ['Matthieu', 'Bruno'];
+    //$scope.user = $scope.users[0];
+
 
     /*   $scope.remove = function(article) {
            if (article) {

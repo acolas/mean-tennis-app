@@ -40,9 +40,12 @@ exports.findByName = function(req, res) {
 exports.create = function(req, res) {
     var game = new Game(req.body);
     game.user = req.user;
-
+    //console.log(req.body.opponent.user._id);
+    //{ message: 'Cast to ObjectId failed for value "[object Object]" at path "opponent.user"',
+    game.opponent.user = req.body.opponent.user._id;
     game.save(function(err) {
         if (err) {
+            console.log(err);
             return res.send('users/signup', {
                 errors: err.errors,
                 game: game
