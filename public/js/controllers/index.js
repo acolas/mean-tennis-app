@@ -12,7 +12,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
             jQuery.each(games, function () {
 
                 // my score
-                if (this.details.victory && (Global.user._id === this.user._id)) {
+                if (this.details.victory && (Global.user._id === this._id)) {
                     $scope.arrayGame = [];
                     $scope.arrayRank = [];
                     $scope.arrayGame.push(moment.parseZone(this.date).format("DD-MMM-YYYY"));

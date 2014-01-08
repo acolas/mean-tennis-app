@@ -113,7 +113,7 @@ exports.user = function(req, res, next, id) {
         .exec(function(err, user) {
             if (err) return next(err);
             if (!user) return next(new Error('Failed to load User ' + id));
-            req.profile = user;
+            req.user = user;
             next();
         });
 };

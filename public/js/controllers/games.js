@@ -64,10 +64,26 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
         Games.get({
             gameId: $routeParams.gameId
         }, function(game) {
+
+            console.log(game.opponent.user);
+            Users.get({
+                userId: game.opponent.user
+            }, function(user) {
+                console.log(user);
+                game.opponent.user = user;
+            });
             $scope.game = game;
         });
         };
 
+
+    $scope.findOneUser = function () {
+        Users.get({
+            userId: $scope.game.opponent.user._id
+        }, function(user) {
+            $scope.game.opponent.user = user;
+        });
+    };
 
 
     $scope.showWeeks = true;

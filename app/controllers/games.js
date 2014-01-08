@@ -3,7 +3,6 @@
  */
 var mongoose = require('mongoose'),
     Game = mongoose.model('Game'),
-    User = mongoose.model('User'),
     _ = require('underscore');
 
 
@@ -39,17 +38,12 @@ exports.findByName = function(req, res) {
  * Create a game
  */
 exports.create = function(req, res) {
-
-    console.log(req.body.opponent.user);
-    req.body.opponent.user = new User({_id : req.body.opponent.user._id, email: req.body.opponent.user.email });
-    console.log(req.body.opponent.user);
+    req.body.opponent.user =  req.body.opponent.user._id;
     var game = new Game(req.body);
     game.user = req.user;
-
     //console.log(req.body.opponent.user._id);
     //{ message: 'Cast to ObjectId failed for value "[object Object]" at path "opponent.user"',
-    game.opponent.user = req.body.opponent.user;
-    console.log(game.opponent.user);
+    //game.opponent.user = req.body.opponent.user._id;
     game.save(function(err) {
         if (err) {
             console.log(err);
