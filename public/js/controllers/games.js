@@ -55,7 +55,15 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
 
 
     $scope.find = function() {
+        //hack due to bug CastError -> see apps > controllers > games.js
         Games.query(function(games) {
+            jQuery.each(games, function (index) {
+                Users.get({
+                    userId: this.opponent.user
+                }, function(user) {
+                    games[index].opponent.user = user;
+                });
+            });
             $scope.games = games;
         });
     };
@@ -64,12 +72,9 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
         Games.get({
             gameId: $routeParams.gameId
         }, function(game) {
-
-            console.log(game.opponent.user);
             Users.get({
                 userId: game.opponent.user
             }, function(user) {
-                console.log(user);
                 game.opponent.user = user;
             });
             $scope.game = game;
@@ -79,13 +84,27 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
 
     $scope.findOneUser = function () {
         Users.get({
-            userId: $scope.game.opponent.user._id
+            userId: $scope.game.opponent.user
         }, function(user) {
             $scope.game.opponent.user = user;
         });
     };
 
+    $scope.findUsers = function () {
+        Users.query(function (users) {
+            $scope.users = [];
 
+            jQuery.each(users, function () {
+                if (Global.user._id !== this._id){
+                    $scope.users.push(this);
+                }
+            });
+
+        });
+    };
+
+
+    // options date Picker
     $scope.showWeeks = true;
     $scope.toggleWeeks = function () {
         $scope.showWeeks = ! $scope.showWeeks;
@@ -106,22 +125,6 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
         'year-format': "'yy'",
         'starting-day': 1
     };
-
-    $scope.findUsers = function () {
-        Users.query(function (users) {
-            $scope.users = [];
-
-            jQuery.each(users, function () {
-                if (Global.user._id !== this._id){
-                    $scope.users.push(this);
-                }
-            });
-
-        });
-    };
-
-    //$scope.users = ['Matthieu', 'Bruno'];
-    //$scope.user = $scope.users[0];
 
 
     /*   $scope.remove = function(article) {

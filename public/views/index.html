@@ -26,8 +26,8 @@
         <tr data-ng-repeat="game in games"  ng-class="{'success': game.details.victory}">
             <div data-ng-show="global.user._id == game.user._id">
                 <td>{{game.date | date:'dd-MM-yyyy'}}</td>
-                <td>{{game.user.email}}</td>
-                <td>{{game.opponent.user}}</td>
+                <td>{{game.user.firstName}}</td>
+                <td>{{game.opponent.user.firstName}}</td>
                 <td>{{game.myScore}}</td>
                 <td>{{game.opponent.score}}</td>
                 <td><a data-ng-href="#!/games/{{game._id}}">Détails</a></td>

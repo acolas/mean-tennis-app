@@ -41,7 +41,6 @@ exports.create = function(req, res) {
     req.body.opponent.user =  req.body.opponent.user._id;
     var game = new Game(req.body);
     game.user = req.user;
-    //console.log(req.body.opponent.user._id);
     //{ message: 'Cast to ObjectId failed for value "[object Object]" at path "opponent.user"',
     //game.opponent.user = req.body.opponent.user._id;
     game.save(function(err) {
@@ -98,7 +97,7 @@ exports.show = function(req, res) {
  * List of Games
  */
 exports.all = function(req, res) {
-    Game.find().sort({date: 'asc'}).populate('user', 'name email').exec(function(err, games) {
+    Game.find({ user: req.user._id }).sort({date: 'asc'}).populate('user', 'firstName email').exec(function(err, games) {
         if (err) {
             res.render('error', {
                 status: 500

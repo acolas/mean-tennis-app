@@ -1,4 +1,4 @@
-angular.module('mean.system').controller('IndexController', ['$scope', 'Global', 'Games', function ($scope, Global, Games) {
+angular.module('mean.system').controller('IndexController', ['$scope', 'Global', 'Games', 'Users', function ($scope, Global, Games, Users) {
     $scope.global = Global;
 
     $scope.find = function () {
@@ -9,7 +9,14 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
             $scope.arrayDateAndScore = [];
             $scope.arrayDateAndRank = [];
 
-            jQuery.each(games, function () {
+            jQuery.each(games, function (index) {
+
+                //get opponent user
+                Users.get({
+                    userId: this.opponent.user
+                }, function(user) {
+                    games[index].opponent.user = user;
+                });
 
                 // my score
                 if (this.details.victory && (Global.user._id === this._id)) {
