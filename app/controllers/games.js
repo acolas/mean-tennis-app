@@ -95,9 +95,26 @@ exports.show = function(req, res) {
 
 /**
  * List of Games
+
+exports.all = function(req, res) {
+    console.log("exports.all");
+    Game.find({ user: req.user._id }).sort({date: 'asc'}).limit(5).populate('user', 'firstName email').exec(function(err, games) {
+        if (err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            res.jsonp(games);
+        }
+    });
+};
+*/
+/**
+ * List of Games
  */
 exports.all = function(req, res) {
-    Game.find({ user: req.user._id }).sort({date: 'asc'}).populate('user', 'firstName email').exec(function(err, games) {
+    console.log("exports.history");
+    Game.find().sort({date: 'asc'}).populate('user', 'firstName email').exec(function(err, games) {
         if (err) {
             res.render('error', {
                 status: 500

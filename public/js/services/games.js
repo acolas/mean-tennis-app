@@ -7,4 +7,5 @@ angular.module('mean.games').factory("Games", ['$resource', function($resource) 
             method: 'PUT'
         }
     });
+
 }]);

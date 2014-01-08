@@ -1,8 +1,11 @@
 angular.module('mean.system').controller('IndexController', ['$scope', 'Global', 'Games', 'Users', function ($scope, Global, Games, Users) {
     $scope.global = Global;
+    $scope.quantity = 5;
 
     $scope.find = function () {
         Games.query(function (games) {
+
+
             $scope.games = games;
             $scope.myTotalScore = 0;
 
@@ -19,7 +22,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                 });
 
                 // my score
-                if (this.details.victory && (Global.user._id === this._id)) {
+                if (this.details.victory && (Global.user._id === this.user._id)) {
                     $scope.arrayGame = [];
                     $scope.arrayRank = [];
                     $scope.arrayGame.push(moment.parseZone(this.date).format("DD-MMM-YYYY"));

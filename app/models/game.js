@@ -12,18 +12,20 @@ var mongoose = require('mongoose'),
 var GameSchema = new Schema({
     myScore: Number,
     opponent: { 
-        user: {
-            type: Schema.ObjectId,
-            ref: 'User'
-        },
-        score: Number
+            user: {
+                type: Schema.ObjectId,
+                ref: 'User'
+            },
+            score: Number
     },
     created : {
         type : Date,
         default : Date.now
     },
     details : {
-        typeOfGame: String,
+        typeOfGame: {
+            type: String,
+            enum: ['OneSet', 'TwoSets', 'ThreeSets', 'TieBreak']},
         official: Boolean,
         points: Number,
         victory: Boolean

@@ -5,8 +5,8 @@
     <h2>{{game.myScore}} - {{game.opponent.score}}</h2>
 
     <h2>Détails du match</h2>
-    <h3>Type de match : {{game.details.typeOfMatch}}</h3>
-    <h3>Officiel ? : {{game.details.official}}</h3>
+    <h3>Type de match : {{game.details.typeOfGame}}</h3>
+    <!--h3>Officiel ? : {{game.details.official}}</h3-->
     <h3>Nombre de points obtenus : {{game.details.points}}</h3>
     <div data-ng-show="global.user._id == game.user._id">
         <a class="btn" href="/#!/game/{{game._id}}/edit">

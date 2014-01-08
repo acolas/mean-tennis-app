@@ -33,7 +33,8 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
             details: {
                 victory: this.victory,
                 typeOfGame: this.details.typeOfGame,
-                official: this.details.official,
+
+                //official: this.details.official,
                 points: this.points
             },
             myScore: this.myScore,

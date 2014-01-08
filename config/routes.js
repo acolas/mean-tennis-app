@@ -79,7 +79,7 @@ module.exports = function(app, passport, auth) {
     app.del('/games/:gameId', auth.requiresLogin, auth.article.hasAuthorization, games.destroy);
 
 
-    
+
     //Finish with setting up the articleId param
     app.param('articleId', articles.article);
     //Finish with setting up the gameId param
