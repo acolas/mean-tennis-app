@@ -28,7 +28,11 @@ var GameSchema = new Schema({
             enum: ['OneSet', 'TwoSets', 'ThreeSets', 'TieBreak']},
         official: Boolean,
         points: Number,
-        victory: Boolean
+        victory: Boolean,
+        surface: {
+            type: String,
+            enum: ['Dur','Gazon','Indoor','Moquette','Parquet', 'Synthétique', 'Terre battue']
+        }
     },
     date: {
         type : Date,

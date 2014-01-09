@@ -113,7 +113,6 @@ exports.all = function(req, res) {
  * List of Games
  */
 exports.all = function(req, res) {
-    console.log("exports.history");
     Game.find().sort({date: 'asc'}).populate('user', 'firstName email').exec(function(err, games) {
         if (err) {
             res.render('error', {

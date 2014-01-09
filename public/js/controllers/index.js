@@ -1,18 +1,25 @@
 angular.module('mean.system').controller('IndexController', ['$scope', 'Global', 'Games', 'Users', function ($scope, Global, Games, Users) {
     $scope.global = Global;
+    //nombre de match à afficher dans le tableau pour l utilisateur courant
     $scope.quantity = 5;
 
     $scope.find = function () {
+
         Games.query(function (games) {
-
-
             $scope.games = games;
             $scope.myTotalScore = 0;
 
             $scope.arrayDateAndScore = [];
             $scope.arrayDateAndRank = [];
 
+
             jQuery.each(games, function (index) {
+
+                //TODO on creer un tableau contenant les users
+                // pour chaque jeu on regarde si le user home ou opponent existe dans le tableau sinon on l ajoute
+                // en fonction de qui a gagné on fait l ajout de points ci dessous
+
+
 
                 //get opponent user
                 Users.get({

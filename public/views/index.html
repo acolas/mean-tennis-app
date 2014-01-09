@@ -3,14 +3,21 @@
 
     <!-- div ui-chart="[s2,s1]" chart-options="chartOptions" ></div -->
 
+    <p class="lead">Evolution des points</p>
     <div ui-chart="[myScore,myRank]" chart-options="chartOptions" ></div>
 <br />
+
+
+    <p class="lead">Mon score total</p>
+
     <div class="alert alert-info">
         Score total = {{myTotalScore}} points
     </div>
 
-    <table class="table table-striped table-hover">
-        <caption>Mes derniers résultats</caption>
+
+    <p class="lead">Mes derniers résultats</p>
+
+    <table class="table table-striped table-hover table-bordered">
         <thead>
         <tr>
             <th>Date du match</th>
@@ -24,8 +31,7 @@
         </thead>
         <tbody>
 
-        <!-- TODO make filter like data-ng-show="global.user._id === game.user._id" -->
-        <tr data-ng-repeat="game in games | limitTo:quantity " ng-class="{'success': game.details.victory}">
+        <tr data-ng-repeat="game in games | limitTo:quantity | filter: { user._id: global.user._id }" ng-class="{'success': game.details.victory}">
                 <td>{{game.date | date:'dd-MM-yyyy'}}</td>
                 <td>{{game.user.firstName}}</td>
                 <td>{{game.opponent.user.firstName}}</td>

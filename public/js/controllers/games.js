@@ -2,7 +2,8 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
     $scope.global = Global;
   
     $scope.create = function() {
-        
+
+        // algo à completer
         //calcul du nb de points en fonction du type de match
         switch (this.details.typeOfGame){
             case 'OneSet':
@@ -33,7 +34,7 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
             details: {
                 victory: this.victory,
                 typeOfGame: this.details.typeOfGame,
-
+                //NEXT
                 //official: this.details.official,
                 points: this.points
             },
