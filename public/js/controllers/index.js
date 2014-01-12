@@ -1,11 +1,30 @@
 angular.module('mean.system').controller('IndexController', ['$scope', 'Global', 'Games', 'Users', function ($scope, Global, Games, Users) {
     $scope.global = Global;
 
+    //objet contenant les variables dyn
+    var chart = {};
+
     //nombre de match à afficher dans le tableau pour l utilisateur courant
     $scope.quantity = 5;
 
 
-    var chart = {};
+    //merge array and sum les points pour une meme date
+    var sum = function(array){
+        var result = array.reduce(function(ob, ar) {
+            if (!(ar[0] in ob.nums)) {
+                ob.nums[ar[0]] = ar;
+                ob.result.push(ar);
+            } else
+                ob.nums[ar[0]][1] += ar[1];
+            return ob;
+        }, {nums:{}, result:[]}).result
+            .sort(function(a,b) {
+                return a[0] - b[0];
+            });
+
+        console.log("result : " + result);
+        return result;
+    };
 
     //on recupere les infos pour le le dashboard
     $scope.find = function () {
@@ -19,13 +38,8 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
 
             $scope.usersArray = [];
 
+            //on recupere les infos de chaque match
             jQuery.each(games, function (index) {
-
-
-                // TODO on creer un tableau contenant les users
-                // pour chaque jeu on regarde si le user home ou opponent existe dans le tableau sinon on l ajoute
-                // en fonction de qui a gagné on fait l ajout de points ci dessous
-
 
                 // on verifie si l user existe
                 var resultUserAlready = jQuery.grep($scope.usersArray, function(e){ return e._id === games[index].user._id; });
@@ -34,27 +48,31 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                     chart[games[index].user.email] = [];
                 }
 
-                // on verifie si l user existe
+                // on verifie si l user existe avant de le mettre dans le tableau
                 var resultOpponentUserAlready = jQuery.grep($scope.usersArray, function(e){ return e._id === games[index].opponent.user._id; });
                 if (resultOpponentUserAlready.length === 0){
                     $scope.usersArray.push(games[index].opponent.user);
                     chart[games[index].opponent.user.email] = [];
                 }
 
+                //on ajoute les points au bon utilisateur
+                var array = [];
+                array.push(moment.parseZone(this.date).format("DD-MMM-YYYY"));
+                array.push(games[index].details.points);
                 if (games[index].myScore > games[index].opponent.score ){
-                    var array = [];
-                    array.push(moment.parseZone(this.date).format("DD-MMM-YYYY"));
-                    array.push(games[index].details.points);
                     chart[games[index].user.email].push(array);
+                } else {
+                    chart[games[index].opponent.user.email].push(array);
                 }
-                console.log(chart[games[index].user.email]);
 
                 });
 
 
-            $scope.chart1 = chart[$scope.usersArray[0].email];
+            $scope.chartUser0Results = sum(chart[$scope.usersArray[0].email]);
+            $scope.chartUser1Results = sum(chart[$scope.usersArray[1].email]);
+            $scope.chartUser2Results = sum(chart[$scope.usersArray[2].email]);
             //score of the others
-            console.dir($scope.usersArray);
+            //console.dir($scope.usersArray);
 /*
                 if (Global.user._id === this.user._id) {
                         $scope.arrayGame = [];
@@ -108,14 +126,38 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                 resultsArrayDateAndRank.push([key2, sums2[key2]]);
             }*/
 
-            $scope.myScore = resultsArrayDateAndScore;
-            $scope.myRank = resultsArrayDateAndRank;
+            //$scope.myScore = resultsArrayDateAndScore;
+            //$scope.myRank = resultsArrayDateAndRank;
 
             $scope.Score1 = [["01-Jan-2014", 20], ["04-Jan-2014", 10], ["05-Jan-2014", 5], ["06-Jan-2014", 50], ["07-Jan-2014", 200]];
             $scope.Rank1 = [["01-Jan-2014", 20], ["04-Jan-2014", 30], ["05-Jan-2014", 35], ["06-Jan-2014", 85], ["07-Jan-2014", 285]];
 
             $scope.Score2 = [["01-Jan-2014", 5], ["04-Jan-2014", 5], ["05-Jan-2014", 5], ["06-Jan-2014", 5], ["07-Jan-2014", 5]];
             $scope.Rank2 = [["01-Jan-2014", 5], ["04-Jan-2014", 10], ["05-Jan-2014", 15], ["06-Jan-2014", 20], ["07-Jan-2014", 25]];
+
+
+            $scope.chartOptionsDate = {
+                title:'Default Date Axis',
+                axes:{
+                    xaxis:{
+                        renderer:jQuery.jqplot.DateAxisRenderer
+                    }
+                },
+
+                legend: {
+                    show: true,
+                    location: 'ne',     // compass direction, nw, n, ne, e, se, s, sw, w.
+                    xoffset: 12,        // pixel offset of the legend box from the x (or x2) axis.
+                    yoffset: 12,        // pixel offset of the legend box from the y (or y2) axis.
+                },
+
+                series:[{
+                    lineWidth:4,
+                    markerOptions:{
+                        style:'square'
+                    }
+                }]
+            };
 
             $scope.chartOptions = {
                 // Turns on animatino for all series in this plot.
