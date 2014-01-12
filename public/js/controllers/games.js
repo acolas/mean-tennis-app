@@ -22,14 +22,15 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
 
         //ajout d un boolean pour l utilisation d'une classe CCS speciale en cas de victoire
         this.victory = false;
-        if (this.myScore > this.opponent.score)
+        if (this.myScore > this.opponentScore)
             this.victory =true;
 
         //Création et sauvegarde de l'objet jeu
+
         var game = new Games({
             opponent: {
-                user: this.opponent.user,                
-                score: this.opponent.score
+                _id: this.opponentUser._id,
+                score: this.opponentScore
             },
             details: {
                 victory: this.victory,
@@ -42,15 +43,16 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
             date: this.date
         });
 
+
         //on redirige vers la fiche du match lors de la création du match
         game.$save(function(response) {
             $location.path("games/" + response._id);
         });
 
         //reinit
-        this.opponent.user = "";
+        this.opponentUser = "";
         this.myScore =  "";
-        this.opponent.score = "";
+        this.opponentScore = "";
         this.victory = false;
         this.points = 0;        
     };
@@ -59,13 +61,13 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
     $scope.find = function() {
         //hack due to bug CastError -> see apps > controllers > games.js
         Games.query(function(games) {
-            jQuery.each(games, function (index) {
+            /*jQuery.each(games, function (index) {
                 Users.get({
                     userId: this.opponent.user
                 }, function(user) {
                     games[index].opponent.user = user;
                 });
-            });
+            });*/
             $scope.games = games;
         });
     };
@@ -74,11 +76,11 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
         Games.get({
             gameId: $routeParams.gameId
         }, function(game) {
-            Users.get({
+            /*Users.get({
                 userId: game.opponent.user
             }, function(user) {
                 game.opponent.user = user;
-            });
+            });*/
             $scope.game = game;
         });
         };

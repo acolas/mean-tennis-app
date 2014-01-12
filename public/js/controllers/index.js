@@ -1,8 +1,13 @@
 angular.module('mean.system').controller('IndexController', ['$scope', 'Global', 'Games', 'Users', function ($scope, Global, Games, Users) {
     $scope.global = Global;
+
     //nombre de match à afficher dans le tableau pour l utilisateur courant
     $scope.quantity = 5;
 
+
+    var chart = {};
+
+    //on recupere les infos pour le le dashboard
     $scope.find = function () {
 
         Games.query(function (games) {
@@ -12,38 +17,74 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
             $scope.arrayDateAndScore = [];
             $scope.arrayDateAndRank = [];
 
+            $scope.usersArray = [];
 
             jQuery.each(games, function (index) {
 
-                //TODO on creer un tableau contenant les users
+
+                // TODO on creer un tableau contenant les users
                 // pour chaque jeu on regarde si le user home ou opponent existe dans le tableau sinon on l ajoute
                 // en fonction de qui a gagné on fait l ajout de points ci dessous
 
 
+                // on verifie si l user existe
+                var resultUserAlready = jQuery.grep($scope.usersArray, function(e){ return e._id === games[index].user._id; });
+                if (resultUserAlready.length === 0){
+                    $scope.usersArray.push(games[index].user);
+                    chart[games[index].user.email] = [];
+                }
 
-                //get opponent user
-                Users.get({
-                    userId: this.opponent.user
-                }, function(user) {
-                    games[index].opponent.user = user;
+                // on verifie si l user existe
+                var resultOpponentUserAlready = jQuery.grep($scope.usersArray, function(e){ return e._id === games[index].opponent.user._id; });
+                if (resultOpponentUserAlready.length === 0){
+                    $scope.usersArray.push(games[index].opponent.user);
+                    chart[games[index].opponent.user.email] = [];
+                }
+
+                if (games[index].myScore > games[index].opponent.score ){
+                    var array = [];
+                    array.push(moment.parseZone(this.date).format("DD-MMM-YYYY"));
+                    array.push(games[index].details.points);
+                    chart[games[index].user.email].push(array);
+                }
+                console.log(chart[games[index].user.email]);
+
                 });
 
-                // my score
-                if (this.details.victory && (Global.user._id === this.user._id)) {
-                    $scope.arrayGame = [];
-                    $scope.arrayRank = [];
-                    $scope.arrayGame.push(moment.parseZone(this.date).format("DD-MMM-YYYY"));
-                    $scope.arrayRank.push(moment.parseZone(this.date).format("DD-MMM-YYYY"));
-                    $scope.myTotalScore += this.details.points;
-                    $scope.arrayRank.push($scope.myTotalScore);
-                    $scope.arrayGame.push(this.details.points);
-                    $scope.arrayDateAndScore.push($scope.arrayGame);
-                    $scope.arrayDateAndRank.push($scope.arrayRank);
+
+            $scope.chart1 = chart[$scope.usersArray[0].email];
+            //score of the others
+            console.dir($scope.usersArray);
+/*
+                if (Global.user._id === this.user._id) {
+                        $scope.arrayGame = [];
+                        $scope.arrayRank = [];
+                        $scope.arrayGame.push(moment.parseZone(this.date).format("DD-MMM-YYYY"));
+                        $scope.arrayRank.push(moment.parseZone(this.date).format("DD-MMM-YYYY"));
+                        $scope.myTotalScore += this.details.points;
+                        $scope.arrayRank.push($scope.myTotalScore);
+                        $scope.arrayGame.push(this.details.points);
+                        $scope.arrayDateAndScore.push($scope.arrayGame);
+                        $scope.arrayDateAndRank.push($scope.arrayRank);
                 }
+/*
+                if (Global.user._id !== this.user._id) {
+                    //ajout du score et des dates pour les autres joueurs
+                    console.log("id opponent : " + this.opponent.user);
+                        if(jQuery.inArray(this.opponent.user, $scope.usersArray) !== -1){
+                            console.log("victoire ? " + this.details.victory);
+                            console.log("le gagnant du match est : " + this.opponent.user);
+                            console.log("le nombre de points gagnés est : " + this.details.points);
+                            console.log("en date du : " + moment.parseZone(this.date).format("DD-MMM-YYYY"));
+                        }
+              }
+
+
             });
+*/
 
             // merge array and sum same key values
-            var sums = {};
+           /* var sums = {};
             [$scope.arrayDateAndScore].forEach(function (array) {
                 array.forEach(function (pair) {
                     sums[pair[0]] = pair[1] + (sums[pair[0]] || 0);
@@ -65,10 +106,16 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
             var resultsArrayDateAndRank = [];
             for (var key2 in sums2) {
                 resultsArrayDateAndRank.push([key2, sums2[key2]]);
-            }
+            }*/
 
             $scope.myScore = resultsArrayDateAndScore;
             $scope.myRank = resultsArrayDateAndRank;
+
+            $scope.Score1 = [["01-Jan-2014", 20], ["04-Jan-2014", 10], ["05-Jan-2014", 5], ["06-Jan-2014", 50], ["07-Jan-2014", 200]];
+            $scope.Rank1 = [["01-Jan-2014", 20], ["04-Jan-2014", 30], ["05-Jan-2014", 35], ["06-Jan-2014", 85], ["07-Jan-2014", 285]];
+
+            $scope.Score2 = [["01-Jan-2014", 5], ["04-Jan-2014", 5], ["05-Jan-2014", 5], ["06-Jan-2014", 5], ["07-Jan-2014", 5]];
+            $scope.Rank2 = [["01-Jan-2014", 5], ["04-Jan-2014", 10], ["05-Jan-2014", 15], ["06-Jan-2014", 20], ["07-Jan-2014", 25]];
 
             $scope.chartOptions = {
                 // Turns on animatino for all series in this plot.

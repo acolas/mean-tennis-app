@@ -38,14 +38,14 @@
 		<div class="control-group">
 			<label class="control-label" for="opponentUser">Mon adversaire</label>
 			<div class="controls">
-                <select class="form-control" id="opponentUser" data-ng-init="findUsers()" data-ng-model="opponent.user" ng-options="u.firstName for u in users" placeholder="Mon adversaire">
+                <select class="form-control" id="opponentUser" data-ng-init="findUsers()" data-ng-model="opponentUser" ng-options="u.firstName for u in users" placeholder="Mon adversaire">
                     <option value="" default selected>Choisir son adversaire</option><option></option></select>
             </div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="opponentScore">Score de mon adversaire</label>
 			<div class="controls">
-				<input type="text" data-ng-model="opponent.score" id="opponentScore" placeholder="Score de mon adversaire" required>
+				<input type="text" data-ng-model="opponentScore" id="opponentScore" placeholder="Score de mon adversaire" required>
 			</div>
 		</div>
 		<div class="control-group">

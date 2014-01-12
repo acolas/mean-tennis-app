@@ -11,13 +11,16 @@ var mongoose = require('mongoose'),
  */
 var GameSchema = new Schema({
     myScore: Number,
-    opponent: { 
-            user: {
-                type: Schema.ObjectId,
-                ref: 'User'
-            },
-            score: Number
+    opponent: {
+        _id: String,
+        score: Number,
+        user: {
+            type: Schema.ObjectId,
+            ref: 'User'
+        }
     },
+    Score: Number,
+    opponentId: String,
     created : {
         type : Date,
         default : Date.now
@@ -48,9 +51,9 @@ GameSchema.path('myScore').validate(function(myScore) {
     return myScore.length;
 }, 'myScore cannot be blank');
 
-GameSchema.path('opponent.user').validate(function(opponentUser) {
+/*GameSchema.path('opponentUser').validate(function(opponentUser) {
     return opponentUser.length;
-}, 'opponentUser opponentUser be blank');
+}, 'opponentUser opponentUser be blank');*/
 
 GameSchema.path('opponent.score').validate(function(opponentScore) {
     return opponentScore.length;
@@ -71,7 +74,7 @@ GameSchema.statics = {
     load: function(id, cb) {
         this.findOne({
             _id: id
-        }).populate('user', 'firstName lastName email').exec(cb);
+        }).populate('user opponent.user', 'firstName lastName email').exec(cb);
     },
     findByName: function (name, cb) {
         this.find({ 

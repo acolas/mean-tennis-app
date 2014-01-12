@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose'),
     Game = mongoose.model('Game'),
+    User = mongoose.model('User'),
     _ = require('underscore');
 
 
@@ -38,20 +39,27 @@ exports.findByName = function(req, res) {
  * Create a game
  */
 exports.create = function(req, res) {
-    req.body.opponent.user =  req.body.opponent.user._id;
-    var game = new Game(req.body);
-    game.user = req.user;
-    //{ message: 'Cast to ObjectId failed for value "[object Object]" at path "opponent.user"',
-    //game.opponent.user = req.body.opponent.user._id;
-    game.save(function(err) {
+    //need this to get object opponent user
+    User.findOne({ _id: req.body.opponent._id }).exec(function(err, user) {
+        var game = new Game(req.body);
+        game.user = req.user;
+
         if (err) {
             console.log(err);
-            return res.send('users/signup', {
-                errors: err.errors,
-                game: game
-            });
         } else {
-            res.jsonp(game);
+            game.opponent.user = user;
+            game.save(function(err) {
+                if (err) {
+                    console.log(err);
+                    return res.send('users/signup', {
+                        errors: err.errors,
+                        game: game
+                    });
+                } else {
+                    res.jsonp(game);
+                }
+
+            });
         }
     });
 };
@@ -113,7 +121,7 @@ exports.all = function(req, res) {
  * List of Games
  */
 exports.all = function(req, res) {
-    Game.find().sort({date: 'asc'}).populate('user', 'firstName email').exec(function(err, games) {
+    Game.find().sort({date: 'asc'}).populate('user opponent.user', 'firstName email').exec(function(err, games) {
         if (err) {
             res.render('error', {
                 status: 500
