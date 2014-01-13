@@ -1,20 +1,18 @@
 <section data-ng-controller="IndexController" data-ng-init="find()">
 	<h1>This is the tennis app dashboard</h1>
 
-    <!-- div ui-chart="[s2,s1]" chart-options="chartOptions" ></div -->
-    <div ui-chart="[chartUser2Results, chartUser1Results, chartUser0Results]" chart-options="chartOptionsDate" ></div>
 
-    rank : {{ chartUserORank }}
-    <p class="lead">Evolution des points</p>
-    <!--div ui-chart="[Score2,Rank2,Score1,Rank1,myScore,myRank]" chart-options="chartOptions" ></div-->
-<br />
+    <div class="alert alert-success">
+        <p class="lead">Mon score total = {{myTotalScore}} points</p>
+    </div>
+
+    <p class="lead">Statistiques</p>
+    <div ui-chart="[chartUser2Results, chartUser1Results, chartUser0Results]" chart-options="chartOptionsDateAndScore" ></div>
+    <div ui-chart="[chartUser2Ranks, chartUser1Ranks, chartUserORanks]" chart-options="chartOptionsDateAndRank" ></div>
 
 
     <p class="lead">Mon score total</p>
 
-    <div class="alert alert-info">
-        Score total = {{myTotalScore}} points
-    </div>
 
 
     <p class="lead">Mes derniers résultats</p>
