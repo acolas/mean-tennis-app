@@ -28,13 +28,14 @@ var GameSchema = new Schema({
     details : {
         typeOfGame: {
             type: String,
-            enum: ['OneSet', 'TwoSets', 'ThreeSets', 'TieBreak']},
+            enum: ['Un set', 'Deux sets', 'Trois sets', 'Tie-Break']},
         official: Boolean,
         points: Number,
         victory: Boolean,
         surface: {
             type: String,
-            enum: ['Dur','Gazon','Indoor','Moquette','Parquet', 'Synthétique', 'Terre battue']
+            enum: ['Dur','Gazon','Indoor','Moquette','Parquet', 'Synthétique', 'Terre battue'],
+            default: 'Terre battue'
         }
     },
     date: {
@@ -74,7 +75,7 @@ GameSchema.statics = {
     load: function(id, cb) {
         this.findOne({
             _id: id
-        }).populate('user opponent.user', 'firstName lastName email').exec(cb);
+        }).populate('user opponent.user', 'firstName lastName email details.points').exec(cb);
     },
     findByName: function (name, cb) {
         this.find({ 

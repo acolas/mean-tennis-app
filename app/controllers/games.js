@@ -7,6 +7,19 @@ var mongoose = require('mongoose'),
     _ = require('underscore');
 
 
+var numberOfPointsPerGame = function (typeOfMatch){
+    switch (typeOfMatch){
+        case 'Un set':
+            return 25;
+        case 'Deux sets':
+            return 50;
+        case 'Trois sets':
+            return 100;
+        case 'Tie-Break':
+            return 5;
+    }
+};
+
 /**
  * Find game by id
  */
@@ -42,13 +55,13 @@ exports.create = function(req, res) {
     //need this to get object opponent user
     User.findOne({ _id: req.body.opponent._id }).exec(function(err, user) {
         var game = new Game(req.body);
-        console.log(game);
         game.user = req.user;
 
         if (err) {
             console.log(err);
         } else {
             game.opponent.user = user;
+            game.details.points = numberOfPointsPerGame(game.details.typeOfGame);
             game.save(function(err) {
                 if (err) {
                     return res.send('users/signup', {

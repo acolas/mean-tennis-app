@@ -1,14 +1,10 @@
 <section data-ng-controller="GamesController">
 	<form class="form-horizontal" data-ng-submit="create()">
-
-
 		<div class="control-group">
 			<div class="controls">
 				{{this.global.user.firstName}} {{this.global.user.lastName}} <a href="">Changer</a>
 			</div>
 		</div>
-
-
     </div>
 
 		<!-- div class="control-group">
@@ -27,8 +23,6 @@
               </span>
              </div>
         </div>
-
-
         <div class="control-group">
 			<label class="control-label" for="myScore">Mon score</label>
 			<div class="controls">
@@ -53,10 +47,10 @@
 				<div class="controls">
 					<div class="input-group">
 				      <span class="input-group-addon">
-				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="OneSet" checked> 1 set gagnant <br/>
-				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="TwoSets"> 2 sets gagnants <br/>
-				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="ThreeSets"> 3 sets gagnants <br/>
-				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="TieBreak"> Tie-break <br/>
+				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="Un set" checked> 1 set gagnant <br/>
+				        <!--input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="TwoSets"> 2 sets gagnants <br/>
+				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="ThreeSets"> 3 sets gagnants <br/-->
+				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="Tie-Break"> Tie-break <br/>
 				        <!--input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="MiniMatch"> Mini Match <br/>
 				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="Other"> Autre <br/-->
 				       </span>

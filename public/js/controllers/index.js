@@ -76,6 +76,8 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                         totalScore = chart["rank_" + games[index].user.email][indexLength][1] + games[index].details.points;
                     }
                     arrayTotalScore.push(totalScore);
+                    console.log("user : " + games[index].user.email + " totalScore :  " + totalScore);
+
                     chart["rank_" + games[index].user.email].push(arrayTotalScore);
                 } else {
                     chart[games[index].opponent.user.email].push(arraySingleScore);
@@ -88,6 +90,8 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                         totalScore = chart["rank_" + games[index].opponent.user.email][indexLength][1] + games[index].details.points;
                     }
                     arrayTotalScore.push(totalScore);
+                    console.log("opponent user : " + games[index].opponent.user.email + " totalScore :  " + totalScore);
+
                     chart["rank_" + games[index].opponent.user.email].push(arrayTotalScore);
                 }
             });

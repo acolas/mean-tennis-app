@@ -3,22 +3,6 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
   
     $scope.create = function() {
 
-        // algo à completer
-        //calcul du nb de points en fonction du type de match
-        switch (this.details.typeOfGame){
-            case 'OneSet':
-                this.points = 25;
-                break;
-            case 'TwoSets':
-                this.points = 50;
-                break;
-            case 'ThreeSets':
-                this.points = 100;
-                break;
-            case 'TieBreak':
-                this.points = 5;
-                break;
-        }
 
         //ajout d un boolean pour l utilisation d'une classe CCS speciale en cas de victoire
         this.victory = false;
@@ -37,7 +21,7 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
                 typeOfGame: this.details.typeOfGame,
                 //NEXT
                 //official: this.details.official,
-                points: this.points
+                points: 0
             },
             myScore: this.myScore,
             date: this.date
