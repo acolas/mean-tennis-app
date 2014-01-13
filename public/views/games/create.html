@@ -1,11 +1,13 @@
 <section data-ng-controller="GamesController">
 	<form class="form-horizontal" data-ng-submit="create()">
 		<div class="control-group">
-			<div class="controls">
-				{{this.global.user.firstName}} {{this.global.user.lastName}} <a href="">Changer</a>
-			</div>
-		</div>
-    </div>
+            <p class="lead">{{this.global.user.firstName}} {{this.global.user.lastName}}</p> ou sélectionner un autre joueur ? (non fonctionnel encore) <input type="checkbox" ng-model="checked">
+            <div class="controls" ng-show="checked">
+                <select class="form-control" id="user" data-ng-init="findUsers()" data-ng-model="user" ng-options="u.firstName for u in users" placeholder="Mo (ou joueur 1)">
+                    <option value="" default selected>Choisir un autre joueur</option><option></option></select>
+            </div>
+        </div>
+
 
 		<!-- div class="control-group">
 			<label class="control-label" for="date">Date de la rencontre</label>
@@ -15,7 +17,7 @@
 		</div-->
 
         <div class="control-group">
-            <label class="control-label" for="date">Date de la rencontre</label>
+            <label class="control-label lead" for="date">Date du match</label>
             <div class="controls">
                     <input type="text" class="form-control" datepicker-popup="dd-MM-yyyy" ng-model="date" is-open="opened" max="'2015-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
               <span class="input-group-btn">
@@ -24,26 +26,26 @@
              </div>
         </div>
         <div class="control-group">
-			<label class="control-label" for="myScore">Mon score</label>
+			<label class="control-label lead" for="myScore">Mon score</label>
 			<div class="controls">
 				<input type="text" data-ng-model="myScore" id="myScore" placeholder="Mon score" required>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="opponentUser">Mon adversaire</label>
+			<label class="control-label lead" for="opponentUser">Mon adversaire</label>
 			<div class="controls">
                 <select class="form-control" id="opponentUser" data-ng-init="findUsers()" data-ng-model="opponentUser" ng-options="u.firstName for u in users" placeholder="Mon adversaire">
                     <option value="" default selected>Choisir son adversaire</option><option></option></select>
             </div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="opponentScore">Score de mon adversaire</label>
+			<label class="control-label lead" for="opponentScore">Score adversaire</label>
 			<div class="controls">
 				<input type="text" data-ng-model="opponentScore" id="opponentScore" placeholder="Score de mon adversaire" required>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="typeOfGame">Type de match</label>
+			<label class="control-label lead" for="typeOfGame">Type de match</label>
 				<div class="controls">
 					<div class="input-group">
 				      <span class="input-group-addon">

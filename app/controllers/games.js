@@ -52,11 +52,31 @@ exports.findByName = function(req, res) {
  * Create a game
  */
 exports.create = function(req, res) {
+
+    //try this
+    /*User.find({ _id: {$in: [req.body.opponent._id , req.body.user._id] }}).exec(function(err, user) {
+
+        var game = new Game(req.body);
+        console.log(user);
+        if (req.body.user){
+            console.log("nv user : " + user[1]);
+            game.user = user[1];
+        }
+        else {
+            game.user = req.user;
+        }
+        if (err) {
+            console.log(err);
+        } else {
+
+            console.log(user[0]);
+            game.opponent.user = user[0];
+
+            */
     //need this to get object opponent user
     User.findOne({ _id: req.body.opponent._id }).exec(function(err, user) {
         var game = new Game(req.body);
-        game.user = req.user;
-
+         game.user = req.user;
         if (err) {
             console.log(err);
         } else {

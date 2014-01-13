@@ -12,6 +12,7 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
         //Création et sauvegarde de l'objet jeu
 
         var game = new Games({
+
             opponent: {
                 _id: this.opponentUser._id,
                 score: this.opponentScore
@@ -27,6 +28,12 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
             date: this.date
         });
 
+
+        if (this.user) {
+            game.user = {
+                _id: this.user._id
+            };
+        }
 
         //on redirige vers la fiche du match lors de la création du match
         game.$save(function(response) {
@@ -88,6 +95,12 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
                 }
             });
 
+        });
+    };
+
+    $scope.findAllUsers = function () {
+        Users.query(function (users) {
+            $scope.allUsers = users;
         });
     };
 
