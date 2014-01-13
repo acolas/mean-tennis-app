@@ -1,10 +1,7 @@
 angular.module('mean.system').controller('HeaderController', ['$scope', 'Global', function ($scope, Global) {
     $scope.global = Global;
 
-    $scope.menu = [{
-        "title": "Classement",
-        "link": "articles"
-    }, {
+    $scope.menu = [ {
         "title": "Saisir un score",
         "link": "games/create"
     }, {

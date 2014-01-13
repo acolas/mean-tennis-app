@@ -2,17 +2,14 @@
 	<h1>This is the tennis app dashboard</h1>
 
 
-    <div class="alert alert-success">
-        <p class="lead">Mon score total = {{myTotalScore}} points</p>
-    </div>
+    <p class="lead">Mon score total</p>
+    <h4 class="alert alert-success">
+        {{myTotalScore}} points
+    </h4>
 
     <p class="lead">Statistiques</p>
     <div ui-chart="[chartUser2Results, chartUser1Results, chartUser0Results]" chart-options="chartOptionsDateAndScore" ></div>
     <div ui-chart="[chartUser2Ranks, chartUser1Ranks, chartUserORanks]" chart-options="chartOptionsDateAndRank" ></div>
-
-
-    <p class="lead">Mon score total</p>
-
 
 
     <p class="lead">Mes derniers résultats</p>

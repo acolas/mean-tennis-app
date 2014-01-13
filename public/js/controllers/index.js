@@ -60,7 +60,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                 var arraySingleScore = [];
                 var arrayTotalScore = [];
                 var totalScore = 0;
-                var dateOfMatch = moment.parseZone(this.date).format("DD-MMM-YYYY");
+                var dateOfMatch = moment.parseZone(this.date).add('days', 1).format("DD-MMM-YYYY");
                 arraySingleScore.push(dateOfMatch);
                 arrayTotalScore.push(dateOfMatch);
                 arraySingleScore.push(games[index].details.points);
@@ -122,7 +122,10 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                 title: 'Nombre de points par match',
                 axes: {
                     xaxis: {
-                        renderer: jQuery.jqplot.DateAxisRenderer
+                        renderer: jQuery.jqplot.DateAxisRenderer,
+                        tickOptions: {
+                            formatString: '%b&nbsp;%#d'
+                        }
                     }
                 },
                 legend: {

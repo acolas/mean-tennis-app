@@ -62,13 +62,6 @@ module.exports = function(app, passport, auth) {
     //Finish with setting up the userId param
     app.param('userId', users.user);
 
-    //User Routes
-    var articles = require('../app/controllers/articles');
-    app.get('/articles', articles.all);
-    app.post('/articles', auth.requiresLogin, articles.create);
-    app.get('/articles/:articleId', articles.show);
-    app.put('/articles/:articleId', auth.requiresLogin, auth.article.hasAuthorization, articles.update);
-    app.del('/articles/:articleId', auth.requiresLogin, auth.article.hasAuthorization, articles.destroy);
 
     //Game Routes
     var games = require('../app/controllers/games');
@@ -77,14 +70,8 @@ module.exports = function(app, passport, auth) {
     app.get('/games/:gameId', games.show);
     app.put('/games/:gameId', auth.requiresLogin, auth.article.hasAuthorization, games.update);
     app.del('/games/:gameId', auth.requiresLogin, auth.article.hasAuthorization, games.destroy);
-
-
-
-    //Finish with setting up the articleId param
-    app.param('articleId', articles.article);
     //Finish with setting up the gameId param
     app.param('gameId', games.game);
-
 
     app.put('/users/:userId', auth.requiresLogin, auth.user.hasAuthorization, users.update);
 
