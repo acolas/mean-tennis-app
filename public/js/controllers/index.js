@@ -9,16 +9,16 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
 
 
     //merge array and sum les points pour une meme date
-    var sum = function(array){
-        var result = array.reduce(function(ob, ar) {
+    var sum = function (array) {
+        var result = array.reduce(function (ob, ar) {
             if (!(ar[0] in ob.nums)) {
                 ob.nums[ar[0]] = ar;
                 ob.result.push(ar);
             } else
                 ob.nums[ar[0]][1] += ar[1];
             return ob;
-        }, {nums:{}, result:[]}).result
-            .sort(function(a,b) {
+        }, {nums: {}, result: []}).result
+            .sort(function (a, b) {
                 return a[0] - b[0];
             });
 
@@ -42,121 +42,155 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
             jQuery.each(games, function (index) {
 
                 // on verifie si l user existe
-                var resultUserAlready = jQuery.grep($scope.usersArray, function(e){ return e._id === games[index].user._id; });
-                if (resultUserAlready.length === 0){
+                var resultUserAlready = jQuery.grep($scope.usersArray, function (e) {
+                    return e._id === games[index].user._id;
+                });
+                if (resultUserAlready.length === 0) {
                     $scope.usersArray.push(games[index].user);
                     chart[games[index].user.email] = [];
+                    chart["rank_"+games[index].user.email] = [];
                 }
 
                 // on verifie si l user existe avant de le mettre dans le tableau
-                var resultOpponentUserAlready = jQuery.grep($scope.usersArray, function(e){ return e._id === games[index].opponent.user._id; });
-                if (resultOpponentUserAlready.length === 0){
+                var resultOpponentUserAlready = jQuery.grep($scope.usersArray, function (e) {
+                    return e._id === games[index].opponent.user._id;
+                });
+                if (resultOpponentUserAlready.length === 0) {
                     $scope.usersArray.push(games[index].opponent.user);
                     chart[games[index].opponent.user.email] = [];
+                    chart["rank_" + games[index].opponent.user.email] = [];
                 }
 
                 //on ajoute les points au bon utilisateur
                 var array = [];
                 array.push(moment.parseZone(this.date).format("DD-MMM-YYYY"));
                 array.push(games[index].details.points);
-                if (games[index].myScore > games[index].opponent.score ){
+                if (games[index].myScore > games[index].opponent.score) {
                     chart[games[index].user.email].push(array);
+                    chart["rank_" + games[index].user.email].push(array);
                 } else {
                     chart[games[index].opponent.user.email].push(array);
+                    chart["rank_" + games[index].opponent.user.email].push(array);
                 }
 
-                });
-
+            });
 
             $scope.chartUser0Results = sum(chart[$scope.usersArray[0].email]);
             $scope.chartUser1Results = sum(chart[$scope.usersArray[1].email]);
             $scope.chartUser2Results = sum(chart[$scope.usersArray[2].email]);
+
+            $scope.chartUserORank = chart["rank_" + $scope.usersArray[0].email];
+
             //score of the others
             //console.dir($scope.usersArray);
-/*
-                if (Global.user._id === this.user._id) {
-                        $scope.arrayGame = [];
-                        $scope.arrayRank = [];
-                        $scope.arrayGame.push(moment.parseZone(this.date).format("DD-MMM-YYYY"));
-                        $scope.arrayRank.push(moment.parseZone(this.date).format("DD-MMM-YYYY"));
-                        $scope.myTotalScore += this.details.points;
-                        $scope.arrayRank.push($scope.myTotalScore);
-                        $scope.arrayGame.push(this.details.points);
-                        $scope.arrayDateAndScore.push($scope.arrayGame);
-                        $scope.arrayDateAndRank.push($scope.arrayRank);
-                }
-/*
-                if (Global.user._id !== this.user._id) {
-                    //ajout du score et des dates pour les autres joueurs
-                    console.log("id opponent : " + this.opponent.user);
-                        if(jQuery.inArray(this.opponent.user, $scope.usersArray) !== -1){
-                            console.log("victoire ? " + this.details.victory);
-                            console.log("le gagnant du match est : " + this.opponent.user);
-                            console.log("le nombre de points gagnés est : " + this.details.points);
-                            console.log("en date du : " + moment.parseZone(this.date).format("DD-MMM-YYYY"));
-                        }
-              }
+            /*
+             if (Global.user._id === this.user._id) {
+             $scope.arrayGame = [];
+             $scope.arrayRank = [];
+             $scope.arrayGame.push(moment.parseZone(this.date).format("DD-MMM-YYYY"));
+             $scope.arrayRank.push(moment.parseZone(this.date).format("DD-MMM-YYYY"));
+             $scope.myTotalScore += this.details.points;
+             $scope.arrayRank.push($scope.myTotalScore);
+             $scope.arrayGame.push(this.details.points);
+             $scope.arrayDateAndScore.push($scope.arrayGame);
+             $scope.arrayDateAndRank.push($scope.arrayRank);
+             }
+             /*
+             if (Global.user._id !== this.user._id) {
+             //ajout du score et des dates pour les autres joueurs
+             console.log("id opponent : " + this.opponent.user);
+             if(jQuery.inArray(this.opponent.user, $scope.usersArray) !== -1){
+             console.log("victoire ? " + this.details.victory);
+             console.log("le gagnant du match est : " + this.opponent.user);
+             console.log("le nombre de points gagnés est : " + this.details.points);
+             console.log("en date du : " + moment.parseZone(this.date).format("DD-MMM-YYYY"));
+             }
+             }
 
 
-            });
-*/
+             });
+             */
 
             // merge array and sum same key values
-           /* var sums = {};
-            [$scope.arrayDateAndScore].forEach(function (array) {
-                array.forEach(function (pair) {
-                    sums[pair[0]] = pair[1] + (sums[pair[0]] || 0);
-                });
-            });
+            /* var sums = {};
+             [$scope.arrayDateAndScore].forEach(function (array) {
+             array.forEach(function (pair) {
+             sums[pair[0]] = pair[1] + (sums[pair[0]] || 0);
+             });
+             });
 
-            var resultsArrayDateAndScore = [];
-            for (var key in sums) {
-                resultsArrayDateAndScore.push([key, sums[key]]);
-            }
+             var resultsArrayDateAndScore = [];
+             for (var key in sums) {
+             resultsArrayDateAndScore.push([key, sums[key]]);
+             }
 
-            // REFACTOR : merge array and sum same key values
-            var sums2 = {};
-            [$scope.arrayDateAndRank].forEach(function (array) {
-                array.forEach(function (pair) {
-                    sums2[pair[0]] = pair[1];
-                });
-            });
-            var resultsArrayDateAndRank = [];
-            for (var key2 in sums2) {
-                resultsArrayDateAndRank.push([key2, sums2[key2]]);
-            }*/
+             // REFACTOR : merge array and sum same key values
+             var sums2 = {};
+             [$scope.arrayDateAndRank].forEach(function (array) {
+             array.forEach(function (pair) {
+             sums2[pair[0]] = pair[1];
+             });
+             });
+             var resultsArrayDateAndRank = [];
+             for (var key2 in sums2) {
+             resultsArrayDateAndRank.push([key2, sums2[key2]]);
+             }*/
 
             //$scope.myScore = resultsArrayDateAndScore;
             //$scope.myRank = resultsArrayDateAndRank;
 
-            $scope.Score1 = [["01-Jan-2014", 20], ["04-Jan-2014", 10], ["05-Jan-2014", 5], ["06-Jan-2014", 50], ["07-Jan-2014", 200]];
-            $scope.Rank1 = [["01-Jan-2014", 20], ["04-Jan-2014", 30], ["05-Jan-2014", 35], ["06-Jan-2014", 85], ["07-Jan-2014", 285]];
+            $scope.Score1 = [
+                ["01-Jan-2014", 20],
+                ["04-Jan-2014", 10],
+                ["05-Jan-2014", 5],
+                ["06-Jan-2014", 50],
+                ["07-Jan-2014", 200]
+            ];
+            $scope.Rank1 = [
+                ["01-Jan-2014", 20],
+                ["04-Jan-2014", 30],
+                ["05-Jan-2014", 35],
+                ["06-Jan-2014", 85],
+                ["07-Jan-2014", 285]
+            ];
 
-            $scope.Score2 = [["01-Jan-2014", 5], ["04-Jan-2014", 5], ["05-Jan-2014", 5], ["06-Jan-2014", 5], ["07-Jan-2014", 5]];
-            $scope.Rank2 = [["01-Jan-2014", 5], ["04-Jan-2014", 10], ["05-Jan-2014", 15], ["06-Jan-2014", 20], ["07-Jan-2014", 25]];
+            $scope.Score2 = [
+                ["01-Jan-2014", 5],
+                ["04-Jan-2014", 5],
+                ["05-Jan-2014", 5],
+                ["06-Jan-2014", 5],
+                ["07-Jan-2014", 5]
+            ];
+            $scope.Rank2 = [
+                ["01-Jan-2014", 5],
+                ["04-Jan-2014", 10],
+                ["05-Jan-2014", 15],
+                ["06-Jan-2014", 20],
+                ["07-Jan-2014", 25]
+            ];
 
 
             $scope.chartOptionsDate = {
-                title:'Default Date Axis',
-                axes:{
-                    xaxis:{
-                        renderer:jQuery.jqplot.DateAxisRenderer
+                title: 'Default Date Axis',
+                axes: {
+                    xaxis: {
+                        renderer: jQuery.jqplot.DateAxisRenderer
                     }
                 },
-
                 legend: {
                     show: true,
                     location: 'ne',     // compass direction, nw, n, ne, e, se, s, sw, w.
                     xoffset: 12,        // pixel offset of the legend box from the x (or x2) axis.
-                    yoffset: 12,        // pixel offset of the legend box from the y (or y2) axis.
+                    yoffset: 12        // pixel offset of the legend box from the y (or y2) axis.
                 },
-
-                series:[{
-                    lineWidth:4,
-                    markerOptions:{
-                        style:'square'
+                series: [
+                    {
+                        lineWidth: 4,
+                        markerOptions: {
+                            style: 'square'
+                        }
                     }
-                }]
+                ]
             };
 
             $scope.chartOptions = {
