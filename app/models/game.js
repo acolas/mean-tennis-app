@@ -19,7 +19,10 @@ var GameSchema = new Schema({
             ref: 'User'
         }
     },
-    Score: Number,
+    score: {
+        scoreOpponent1 : [Number],
+        scoreOpponent2 : [Number]
+    },
     opponentId: String,
     created : {
         type : Date,

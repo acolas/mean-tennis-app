@@ -11,8 +11,25 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
 
         //Création et sauvegarde de l'objet jeu
 
-        var game = new Games({
+        console.log(this.score);
+        var arrayScoreOpponent1 = [];
+        var arrayScoreOpponent2 = [];
+        for (var i= 0; i < this.score.options.length; i++){
+            arrayScoreOpponent1.push(this.score.options[i].scoreOpponent1);
+            arrayScoreOpponent2.push(this.score.options[i].scoreOpponent2);
+        }
 
+        if (this.score.option_new.scoreOpponent1){
+            arrayScoreOpponent1.push(this.score.option_new.scoreOpponent1);
+        }
+        if (this.score.option_new.scoreOpponent2){
+            arrayScoreOpponent2.push(this.score.option_new.scoreOpponent2);
+        }
+        var game = new Games({
+            score: {
+                scoreOpponent1 : arrayScoreOpponent1,
+                scoreOpponent2: arrayScoreOpponent2
+            },
             opponent: {
                 _id: this.opponentUser._id,
                 score: this.opponentScore
@@ -127,6 +144,18 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
         'starting-day': 1
     };
 
+
+    $scope.score = {
+        options: [],
+        option_new: { scoreOpponent1: '', scoreOpponent2: '' }
+    };
+
+    $scope.add = function() {
+        // add the new option to the model
+        $scope.score.options.push($scope.score.option_new);
+        // clear the option.
+        $scope.score.option_new = { scoreOpponent1: '', scoreOpponent2: '' };
+    };
 
     /*   $scope.remove = function(article) {
            if (article) {

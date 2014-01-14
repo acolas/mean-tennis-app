@@ -25,6 +25,22 @@
               </span>
              </div>
         </div>
+
+
+        <div ng-repeat="option in score.options">
+            <label>Set {{$index+1}}</label>
+            <input type="text" ng-model="option.scoreOpponent1" ng-change="change()" />
+            <input type="text" ng-model="option.scoreOpponent2" ng-change="change()" />
+            <br/>
+        </div>
+        <div>
+            <label>Set {{score.options.length + 1}}</label>
+            <input type="text" ng-model="score.option_new.scoreOpponent1" />
+            <input type="text" ng-model="score.option_new.scoreOpponent2" />
+            <button type="button" ng-click="add()">Add Row</button>
+            <br/>
+        </div>
+
         <div class="control-group">
 			<label class="control-label lead" for="myScore">Mon score</label>
 			<div class="controls">

@@ -76,6 +76,7 @@ exports.create = function(req, res) {
     //need this to get object opponent user
     User.findOne({ _id: req.body.opponent._id }).exec(function(err, user) {
         var game = new Game(req.body);
+        console.log(game);
          game.user = req.user;
         if (err) {
             console.log(err);
