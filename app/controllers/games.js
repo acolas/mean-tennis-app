@@ -7,14 +7,18 @@ var mongoose = require('mongoose'),
     _ = require('underscore');
 
 
-var numberOfPointsPerGame = function (typeOfMatch){
+var numberOfPointsPerGame = function (typeOfMatch, nbSet){
     switch (typeOfMatch){
-        case 'Un set':
-            return 25;
-        case 'Deux sets':
-            return 50;
-        case 'Trois sets':
-            return 100;
+        case 'Match':
+            switch (nbSet){
+                case 1:
+                    return 25;
+                case 2:
+                    return 50;
+                case 3:
+                    return 100;
+            }
+            break;
         case 'Tie-Break':
             return 5;
     }
@@ -77,12 +81,31 @@ exports.create = function(req, res) {
     User.findOne({ _id: req.body.opponent._id }).exec(function(err, user) {
         var game = new Game(req.body);
         console.log(game);
-         game.user = req.user;
+
+        //externalize
+        var victoryOfOpponent1 = 0;
+        var victoryOfOpponent2 = 0;
+        for (var i= 0; i < game.score.scoreOpponent1.length; i++){
+            if (game.score.scoreOpponent1[i] > game.score.scoreOpponent2[i]) {
+                victoryOfOpponent1++;
+                victoryOfOpponent2++;
+            } else {
+                victoryOfOpponent1--;
+                victoryOfOpponent2++;
+            }
+        }
+        if (victoryOfOpponent1 > victoryOfOpponent2) {
+            game.details.victory = true;
+        }
+
+        //get current user
+        game.user = req.user;
         if (err) {
             console.log(err);
         } else {
             game.opponent.user = user;
-            game.details.points = numberOfPointsPerGame(game.details.typeOfGame);
+            game.details.points = numberOfPointsPerGame(game.details.typeOfGame, game.score.scoreOpponent1.length);
+            console.log("final game " + game);
             game.save(function(err) {
                 if (err) {
                     return res.send('users/signup', {
@@ -155,7 +178,7 @@ exports.all = function(req, res) {
  * List of Games
  */
 exports.all = function(req, res) {
-    Game.find().sort({date: 'asc'}).populate('user opponent.user', 'firstName email').exec(function(err, games) {
+    Game.find().sort({date: 'desc'}).populate('user opponent.user', 'firstName email').exec(function(err, games) {
         if (err) {
             res.render('error', {
                 status: 500

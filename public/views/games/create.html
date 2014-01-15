@@ -1,95 +1,120 @@
 <section data-ng-controller="GamesController">
-	<form class="form-horizontal" data-ng-submit="create()">
-		<div class="control-group">
-            <p class="lead">{{this.global.user.firstName}} {{this.global.user.lastName}}</p> ou sélectionner un autre joueur ? (non fonctionnel encore) <input type="checkbox" ng-model="checked">
+    <form class="form-horizontal" data-ng-submit="create()">
+        <div class="control-group">
+            <p class="lead">{{this.global.user.firstName}} {{this.global.user.lastName}}</p> ou sélectionner un autre
+            joueur ? (non fonctionnel encore) <input type="checkbox" ng-model="checked">
+
             <div class="controls" ng-show="checked">
-                <select class="form-control" id="user" data-ng-init="findUsers()" data-ng-model="user" ng-options="u.firstName for u in users" placeholder="Mo (ou joueur 1)">
-                    <option value="" default selected>Choisir un autre joueur</option><option></option></select>
+                <select class="form-control" id="user" data-ng-init="findUsers()" data-ng-model="user"
+                        ng-options="u.firstName for u in users" placeholder="Mo (ou joueur 1)">
+                    <option value="" default selected>Choisir un autre joueur</option>
+                    <option></option>
+                </select>
             </div>
         </div>
 
 
-		<!-- div class="control-group">
-			<label class="control-label" for="date">Date de la rencontre</label>
-			<div class="controls">
-				<input type="date" data-ng-model="date" id="date" placeholder="Date de la rencontre" required>
-			</div>
-		</div-->
+        <!-- div class="control-group">
+            <label class="control-label" for="date">Date de la rencontre</label>
+            <div class="controls">
+                <input type="date" data-ng-model="date" id="date" placeholder="Date de la rencontre" required>
+            </div>
+        </div-->
 
         <div class="control-group">
             <label class="control-label lead" for="date">Date du match</label>
+
             <div class="controls">
-                    <input type="text" class="form-control" datepicker-popup="dd-MM-yyyy" ng-model="date" is-open="opened" max="'2015-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                <input type="text" class="form-control" datepicker-popup="dd-MM-yyyy" ng-model="date" is-open="opened"
+                       max="'2015-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
               <span class="input-group-btn">
                 <button class="btn btn-default" ng-click="open($event)"><i class="icon icon-calendar"></i></button>
               </span>
-             </div>
+            </div>
         </div>
 
-
-        <div ng-repeat="option in score.options">
-            <label>Set {{$index+1}}</label>
-            <input type="text" ng-model="option.scoreOpponent1" ng-change="change()" />
-            <input type="text" ng-model="option.scoreOpponent2" ng-change="change()" />
-            <br/>
-        </div>
-        <div>
-            <label>Set {{score.options.length + 1}}</label>
-            <input type="text" ng-model="score.option_new.scoreOpponent1" />
-            <input type="text" ng-model="score.option_new.scoreOpponent2" />
-            <button type="button" ng-click="add()">Add Row</button>
-            <br/>
-        </div>
 
         <div class="control-group">
+            <label class="control-label lead" for="typeOfGame">Type de match</label>
+
+            <div class="controls">
+                <div class="input-group">
+				      <span class="input-group-addon">
+				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="Tie-Break" checked> Tie-break <br/>
+				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="Match"> Match <br/>
+				        <!--input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="TwoSets"> 2 sets gagnants <br/>
+				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="ThreeSets"> 3 sets gagnants <br/-->
+				        <!--input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="MiniMatch"> Mini Match <br/>
+				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="Other"> Autre <br/-->
+				       </span>
+                </div>
+            </div>
+        </div>
+
+        <div ng-repeat="option in score.options">
+            <div class="control-group">
+                <label class="control-label lead" for="score">Set {{$index+1}}</label>
+
+                <div class="controls">
+                    <input type="text" ng-model="option.scoreOpponent1" ng-change="change()"/>
+                    <input type="text" ng-model="option.scoreOpponent2" ng-change="change()"/>
+                    <br/>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="control-group">
+            <label class="control-label lead" for="score">Set {{score.options.length + 1}}</label>
+
+            <div class="controls">
+                <input type="text" ng-model="score.option_new.scoreOpponent1"/>
+                <input type="text" ng-model="score.option_new.scoreOpponent2"/>
+                <button type="button" ng-click="add()">Ajouter un set</button>
+                <br/>
+            </div>
+        </div>
+        </div>
+
+        <!--div class="control-group">
 			<label class="control-label lead" for="myScore">Mon score</label>
 			<div class="controls">
 				<input type="text" data-ng-model="myScore" id="myScore" placeholder="Mon score" required>
 			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label lead" for="opponentUser">Mon adversaire</label>
-			<div class="controls">
-                <select class="form-control" id="opponentUser" data-ng-init="findUsers()" data-ng-model="opponentUser" ng-options="u.firstName for u in users" placeholder="Mon adversaire">
-                    <option value="" default selected>Choisir son adversaire</option><option></option></select>
-            </div>
-		</div>
-		<div class="control-group">
-			<label class="control-label lead" for="opponentScore">Score adversaire</label>
-			<div class="controls">
-				<input type="text" data-ng-model="opponentScore" id="opponentScore" placeholder="Score de mon adversaire" required>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label lead" for="typeOfGame">Type de match</label>
-				<div class="controls">
-					<div class="input-group">
-				      <span class="input-group-addon">
-				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="Un set" checked> 1 set gagnant <br/>
-				        <!--input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="TwoSets"> 2 sets gagnants <br/>
-				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="ThreeSets"> 3 sets gagnants <br/-->
-				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="Tie-Break"> Tie-break <br/>
-				        <!--input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="MiniMatch"> Mini Match <br/>
-				        <input type="radio" data-ng-model="details.typeOfGame" name="typeOfGame" value="Other"> Autre <br/-->
-				       </span>
-				    </div>
-				</div>
-		</div>
-		<!--div class="control-group">
-			<label class="control-label" for="official">Match officiel ?</label>
-				<div class="controls">
-					<div class="input-group">
-				      <span class="input-group-addon">
-				        <input type="radio" data-ng-model="details.official" name="official" value="no" checked> Non <br/>
-				        <input type="radio" data-ng-model="details.official" name="official" value="yes"> Oui <br/>
- 					  </span>
-				    </div>
-				</div>
 		</div-->
-		<div class="control-group">
-			<div class="controls">
-				<input type="submit" class="btn">
-			</div>
-		</div>
-	</form>
+        <div class="control-group">
+            <label class="control-label lead" for="opponentUser">Mon adversaire</label>
+
+            <div class="controls">
+                <select class="form-control" id="opponentUser" data-ng-init="findUsers()" data-ng-model="opponentUser"
+                        ng-options="u.firstName for u in users" placeholder="Mon adversaire">
+                    <option value="" default selected>Choisir son adversaire</option>
+                    <option></option>
+                </select>
+            </div>
+        </div>
+        <!--div class="control-group">
+            <label class="control-label lead" for="opponentScore">Score adversaire</label>
+            <div class="controls">
+                <input type="text" data-ng-model="opponentScore" id="opponentScore" placeholder="Score de mon adversaire" required>
+            </div>
+        </div-->
+
+        <!--div class="control-group">
+            <label class="control-label" for="official">Match officiel ?</label>
+                <div class="controls">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <input type="radio" data-ng-model="details.official" name="official" value="no" checked> Non <br/>
+                        <input type="radio" data-ng-model="details.official" name="official" value="yes"> Oui <br/>
+                       </span>
+                    </div>
+                </div>
+        </div-->
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" class="btn">
+            </div>
+        </div>
+    </form>
 </section>

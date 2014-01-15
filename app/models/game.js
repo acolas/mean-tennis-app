@@ -31,7 +31,7 @@ var GameSchema = new Schema({
     details : {
         typeOfGame: {
             type: String,
-            enum: ['Un set', 'Deux sets', 'Trois sets', 'Tie-Break']},
+            enum: ['Match', 'Tie-Break']},
         official: Boolean,
         points: Number,
         victory: Boolean,

@@ -61,10 +61,14 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                 var arrayTotalScore = [];
                 var totalScore = 0;
                 var dateOfMatch = moment.parseZone(this.date).add('days', 1).format("DD-MMM-YYYY");
+
                 arraySingleScore.push(dateOfMatch);
                 arrayTotalScore.push(dateOfMatch);
                 arraySingleScore.push(games[index].details.points);
+
                 var indexLength = 0;
+
+                //a revoir avec le nombre de sets
                 if (games[index].myScore > games[index].opponent.score) {
                     chart[games[index].user.email].push(arraySingleScore);
                     indexLength = chart["rank_" + games[index].user.email].length - 1;
