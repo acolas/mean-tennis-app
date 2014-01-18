@@ -68,8 +68,8 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
 
                 var indexLength = 0;
 
-                //a revoir avec le nombre de sets
-                if (games[index].myScore > games[index].opponent.score) {
+                //si le user 1 a gagné
+                if (games[index].details.victory) {
                     chart[games[index].user.email].push(arraySingleScore);
                     indexLength = chart["rank_" + games[index].user.email].length - 1;
                     //find user and add score by date
@@ -109,13 +109,16 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
             $scope.chartUser2Results = sum(chart[$scope.usersArray[2].email]);
 
             //calcul du classement
-            $scope.chartUserORanks = chart["rank_" + $scope.usersArray[0].email];
+            $scope.chartUser0Ranks = chart["rank_" + $scope.usersArray[0].email];
             $scope.chartUser1Ranks = chart["rank_" + $scope.usersArray[1].email];
             $scope.chartUser2Ranks = chart["rank_" + $scope.usersArray[2].email];
 
-            //score of the others
-            //console.dir($scope.usersArray);
+            //calcul du classement
+            $scope.chartUser0RanksScore = chart["rank_" + $scope.usersArray[0].email][chart["rank_" + $scope.usersArray[0].email].length - 1][1];
+            $scope.chartUser1RanksScore = chart["rank_" + $scope.usersArray[1].email][chart["rank_" + $scope.usersArray[1].email].length - 1][1];
+            $scope.chartUser2RanksScore = chart["rank_" + $scope.usersArray[2].email][chart["rank_" + $scope.usersArray[2].email].length - 1][1];
 
+            //FIN TODO
 
             //on recupere les infos de chaque match
             jQuery.each($scope.usersArray, function (index) {
@@ -127,7 +130,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
 
 
             $scope.chartOptionsDateAndScore = {
-                title: 'Nombre de points par match',
+                title: 'Nombre de points gagnés par date',
                 axes: {
                     xaxis: {
                         renderer: jQuery.jqplot.DateAxisRenderer,

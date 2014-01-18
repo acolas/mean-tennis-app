@@ -14,6 +14,7 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
         console.log(this.score);
         var arrayScoreOpponent1 = [];
         var arrayScoreOpponent2 = [];
+
         for (var i= 0; i < this.score.options.length; i++){
             arrayScoreOpponent1.push(this.score.options[i].scoreOpponent1);
             arrayScoreOpponent2.push(this.score.options[i].scoreOpponent2);
@@ -32,7 +33,6 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
             },
             opponent: {
                 _id: this.opponentUser._id,
-                score: this.opponentScore
             },
             details: {
                 victory: this.victory,
@@ -41,7 +41,6 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
                 //official: this.details.official,
                 points: 0
             },
-            myScore: this.myScore,
             date: this.date
         });
 

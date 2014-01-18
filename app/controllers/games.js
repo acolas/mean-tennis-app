@@ -85,10 +85,13 @@ exports.create = function(req, res) {
         //externalize
         var victoryOfOpponent1 = 0;
         var victoryOfOpponent2 = 0;
+        console.log(" game.score.scoreOpponent1.length : " +  game.score.scoreOpponent1.length);
         for (var i= 0; i < game.score.scoreOpponent1.length; i++){
+            console.log("game.score.scoreOpponent1[i] : " + game.score.scoreOpponent1[i]);
+            console.log("game.score.scoreOpponent2[i] : " + game.score.scoreOpponent2[i]);
             if (game.score.scoreOpponent1[i] > game.score.scoreOpponent2[i]) {
                 victoryOfOpponent1++;
-                victoryOfOpponent2++;
+                victoryOfOpponent2--;
             } else {
                 victoryOfOpponent1--;
                 victoryOfOpponent2++;
@@ -178,7 +181,7 @@ exports.all = function(req, res) {
  * List of Games
  */
 exports.all = function(req, res) {
-    Game.find().sort({date: 'desc'}).populate('user opponent.user', 'firstName email').exec(function(err, games) {
+    Game.find().sort({date: 'asc'}).populate('user opponent.user', 'firstName email').exec(function(err, games) {
         if (err) {
             res.render('error', {
                 status: 500
