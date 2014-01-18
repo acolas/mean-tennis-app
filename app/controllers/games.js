@@ -80,15 +80,11 @@ exports.create = function(req, res) {
     //need this to get object opponent user
     User.findOne({ _id: req.body.opponent._id }).exec(function(err, user) {
         var game = new Game(req.body);
-        console.log(game);
 
         //externalize
         var victoryOfOpponent1 = 0;
         var victoryOfOpponent2 = 0;
-        console.log(" game.score.scoreOpponent1.length : " +  game.score.scoreOpponent1.length);
         for (var i= 0; i < game.score.scoreOpponent1.length; i++){
-            console.log("game.score.scoreOpponent1[i] : " + game.score.scoreOpponent1[i]);
-            console.log("game.score.scoreOpponent2[i] : " + game.score.scoreOpponent2[i]);
             if (game.score.scoreOpponent1[i] > game.score.scoreOpponent2[i]) {
                 victoryOfOpponent1++;
                 victoryOfOpponent2--;
@@ -108,7 +104,6 @@ exports.create = function(req, res) {
         } else {
             game.opponent.user = user;
             game.details.points = numberOfPointsPerGame(game.details.typeOfGame, game.score.scoreOpponent1.length);
-            console.log("final game " + game);
             game.save(function(err) {
                 if (err) {
                     return res.send('users/signup', {

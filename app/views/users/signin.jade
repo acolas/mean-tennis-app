@@ -4,9 +4,9 @@ block auth
   form.signin.form-horizontal(action="/users/session", method="post")
     p.error= message
     .control-group
-      label.control-label(for='email') Email
+      label.control-label(for='identifiant') Identifiant
       .controls
-        input#email(type='text', name="email", placeholder='Email')
+        input#email(type='text', name="identifiant", placeholder='Identifiant')
 
     .control-group
       label.control-label(for='password') Mot de passe
@@ -18,3 +18,5 @@ block auth
       &nbsp;
       | ou&nbsp;
       a.show-signup(href="/signup") S'enregistrer
+
+   p.well compte de test : anthony / anthony
