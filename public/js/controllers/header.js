@@ -11,7 +11,7 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
         "title": "Règlement",
         "link": "rules"
     }, {
-        "title": "A propos",
+        "title": "À propos",
         "link": "stack"
     }];
     
