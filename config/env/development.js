@@ -1,7 +1,7 @@
 module.exports = {
     db: "mongodb://localhost/mean-dev",
     app: {
-        name: "Tennis app"
+        name: "My Tennis app"
     },
     facebook: {
         clientID: "APP_ID",

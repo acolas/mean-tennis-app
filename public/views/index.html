@@ -1,7 +1,7 @@
 <section data-ng-controller="IndexController" data-ng-init="find()">
-	<h1>This is the tennis app dashboard</h1>
+    <h1>This is the tennis app dashboard</h1>
 
-    <p class="lead">Classement</p>
+    <p class="lead"><i class="icon-star"></i> Classement</p>
 
     <h4 class="alert alert-success">
         <ol>
@@ -12,12 +12,19 @@
     </h4>
 
 
-    <p class="lead">Statistiques</p>
-    <div ui-chart="[chartUser2Results, chartUser1Results, chartUser0Results]" chart-options="chartOptionsDateAndScore" ></div>
-    <div ui-chart="[chartUser2Ranks, chartUser1Ranks, chartUser0Ranks]" chart-options="chartOptionsDateAndRank" ></div>
+    <p class="lead"><i class="icon-signal"></i> Statistiques <span class="label label-warning"> En cours d'amélioration (Ajouter des options d'affichage)</span>
+    </p>
+
+    <div ui-chart="[chartUser2Results, chartUser1Results, chartUser0Results]"
+         chart-options="chartOptionsDateAndScore"></div>
+    <br/>
+    <br/>
+
+    <div ui-chart="[chartUser2Ranks, chartUser1Ranks, chartUser0Ranks]" chart-options="chartOptionsDateAndRank"></div>
 
 
-    <p class="lead">Mes derniers résultats<span class="label label-warning">En cours d'amélioration (Tris et filtres)</span></p>
+    <p class="lead"><i class="icon-user"></i> Mes 10 derniers résultats <span class="label label-warning">En cours d'amélioration (Tris et filtres)</span>
+    </p>
 
 
     <table class="table table-striped table-hover table-bordered">
@@ -35,15 +42,19 @@
         </thead>
         <tbody>
 
-        <tr data-ng-repeat="game in games | orderBy:'date':true | filter: { user._id: global.user._id } | limitTo:quantity ">
-                <td>{{game.date | date:'dd-MM-yyyy'}}</td>
-                <td>{{game.user.firstName}} <span ng-show="game.details.victory" class="label label-success">Victoire</span><span ng-hide="game.details.victory" class="label label-important">Défaite</span></td>
-                <td>{{game.opponent.user.firstName}}  </td>
-                <!--td>{{game.myScore}}</td>
-                <td>-</td>
-                <td>{{game.opponent.score}}</td-->
-                <td>{{game.details.points}}</td>
-                <td><a data-ng-href="#!/games/{{game._id}}">Détails</a></td>
+        <tr data-ng-repeat="game in gamesFiltered | orderBy:'date':true | limitTo:quantity ">
+            <td>{{game.date | date:'dd-MM-yyyy'}}</td>
+
+            <td>{{game.user.firstName}} <span ng-show="game.details.victory" class="label label-success">Victoire</span>
+            </td>
+            <td>{{game.opponent.user.firstName}} <span ng-hide="game.details.victory" class="label label-success">Victoire</span>
+            </td>
+            
+            <!--td>{{game.myScore}}</td>
+            <td>-</td>
+            <td>{{game.opponent.score}}</td-->
+            <td>{{game.details.points}}</td>
+            <td><a data-ng-href="#!/games/{{game._id}}">Détails</a></td>
         </tr>
 
         </tbody>
