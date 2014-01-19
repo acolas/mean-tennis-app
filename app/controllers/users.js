@@ -3,7 +3,8 @@
  */
 var mongoose = require('mongoose'),
     User = mongoose.model('User'),
-    _ = require('underscore');
+    _ = require('underscore'),
+    moment = require('moment');
 
 /**
  * Auth callback
@@ -44,6 +45,7 @@ exports.signout = function(req, res) {
  * Session
  */
 exports.session = function(req, res) {
+    console.log(req.user.firstName + " is logged : " + moment().format('dddd MMMM YYYY, h:mm:ss a'));
     res.redirect('/');
 };
 
