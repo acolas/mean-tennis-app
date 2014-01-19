@@ -5,7 +5,7 @@
     <form class="form-horizontal" data-ng-submit="create()">
         <div class="control-group">
             <p class="lead">{{this.global.user.firstName}} {{this.global.user.lastName}}</p> ou sélectionner un autre
-            joueur ? (non fonctionnel encore) <input type="checkbox" ng-model="checked">
+            joueur ? <span class="label label-warning"> Option non fonctionnelle encore</span><input type="checkbox" ng-model="checked">
 
             <div class="controls" ng-show="checked">
                 <select class="form-control" id="user" data-ng-init="findUsers()" data-ng-model="user"
