@@ -33,9 +33,6 @@
             <th>Date du match</th>
             <th>Moi</th>
             <th>Adversaire</th>
-            <!--th>Mon Score</th>
-            <th>Vs</th>
-            <th>Score adversaire</th-->
             <th>Points en jeu</th>
             <th>#</th>
         </tr>
@@ -44,15 +41,10 @@
 
         <tr data-ng-repeat="game in gamesFiltered | orderBy:'date':true | limitTo:quantity ">
             <td>{{game.date | date:'dd-MM-yyyy'}}</td>
-
             <td>{{game.user.firstName}} <span ng-show="game.details.victory" class="label label-success">Victoire</span>
             </td>
             <td>{{game.opponent.user.firstName}} <span ng-hide="game.details.victory" class="label label-success">Victoire</span>
             </td>
-
-            <!--td>{{game.myScore}}</td>
-            <td>-</td>
-            <td>{{game.opponent.score}}</td-->
             <td>{{game.details.points}}</td>
             <td><a data-ng-href="#!/games/{{game._id}}">Détails</a></td>
         </tr>
