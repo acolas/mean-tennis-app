@@ -45,7 +45,7 @@ exports.signout = function(req, res) {
  * Session
  */
 exports.session = function(req, res) {
-    console.log(req.user.firstName + " is logged : ");
+    console.log(req.user.firstName + " is logged");
     res.redirect('/');
 };
 
