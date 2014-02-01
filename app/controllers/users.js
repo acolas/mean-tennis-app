@@ -125,7 +125,7 @@ exports.user = function(req, res, next, id) {
  * List of Users
  */
 exports.all = function(req, res) {
-    User.find().sort({firstName: 'asc'}).populate('user', 'firstName email').exec(function(err, users) {
+    User.find().sort({firstName: 'asc'}).populate('user', 'firstName email rank').exec(function(err, users) {
         if (err) {
             res.render('error', {
                 status: 500

@@ -24,6 +24,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
         return result;
     };
 
+
     //on recupere les infos pour le le dashboard
     $scope.find = function () {
     $scope.gamesFiltered = [];
@@ -35,6 +36,9 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
             //$scope.arrayDateAndRank = [];
 
             $scope.usersArray = [];
+            $scope.user0Games = 0;
+            $scope.user1Games = 0;
+            $scope.user2Games = 0;
 
             //on recupere les infos de chaque match
             jQuery.each(games, function (index) {
@@ -103,25 +107,43 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                     $scope.gamesFiltered.push(games[index]);
                 }
 
+                if (games[index].opponent.user.firstName === "Bruno" || games[index].user.firstName === "Bruno") {
+                    $scope.user0Games++;
+                }
+
+                if (games[index].opponent.user.firstName === "Matthieu" || games[index].user.firstName === "Matthieu") {
+                    $scope.user1Games++;
+                }
+
+                if (games[index].opponent.user.firstName === "Anthony" || games[index].user.firstName === "Anthony") {
+                    $scope.user2Games++;
+                }
+
              });
 
 
             //TODO rendre dynamique en fonction du nombre de users avec les contraintes jqplot
 
             //calcul des points + somme des valeurs pour une meme date
+
+            $scope.user0NumberOfVictories = chart[$scope.usersArray[0].email].length;
+            $scope.user1NumberOfVictories = chart[$scope.usersArray[1].email].length;
+            $scope.user2NumberOfVictories = chart[$scope.usersArray[2].email].length;
+
+
             $scope.chartUser0Results = sum(chart[$scope.usersArray[0].email]);
             $scope.chartUser1Results = sum(chart[$scope.usersArray[1].email]);
             $scope.chartUser2Results = sum(chart[$scope.usersArray[2].email]);
 
-            //calcul du classement
+            //calcul du classement (charts)
             $scope.chartUser0Ranks = chart["rank_" + $scope.usersArray[0].email];
             $scope.chartUser1Ranks = chart["rank_" + $scope.usersArray[1].email];
             $scope.chartUser2Ranks = chart["rank_" + $scope.usersArray[2].email];
 
-            //calcul du classement
-            $scope.chartUser0RanksScore = chart["rank_" + $scope.usersArray[0].email][chart["rank_" + $scope.usersArray[0].email].length - 1][1];
-            $scope.chartUser1RanksScore = chart["rank_" + $scope.usersArray[1].email][chart["rank_" + $scope.usersArray[1].email].length - 1][1];
-            $scope.chartUser2RanksScore = chart["rank_" + $scope.usersArray[2].email][chart["rank_" + $scope.usersArray[2].email].length - 1][1];
+            //calcul du classement texte
+            $scope.chartUser0RanksScore = [chart["rank_" + $scope.usersArray[0].email][chart["rank_" + $scope.usersArray[0].email].length - 1][1], $scope.usersArray[0].rank];
+            $scope.chartUser1RanksScore = [chart["rank_" + $scope.usersArray[1].email][chart["rank_" + $scope.usersArray[1].email].length - 1][1], $scope.usersArray[1].rank];
+            $scope.chartUser2RanksScore = [chart["rank_" + $scope.usersArray[2].email][chart["rank_" + $scope.usersArray[2].email].length - 1][1], $scope.usersArray[2].rank];
 
             //FIN TODO
 
@@ -155,7 +177,6 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                     {label: $scope.usersArray[2].firstName},
                     {label: $scope.usersArray[1].firstName},
                     {label: $scope.usersArray[0].firstName}
-
                 ],
                 highlighter: {
                     show: true,
@@ -192,7 +213,9 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                     yoffset: 12        // pixel offset of the legend box from the y (or y2) axis.
                 },
                 series: [
-                    {label: $scope.usersArray[2].firstName},
+                    {label: $scope.usersArray[2].firstName/*, rendererOptions: {
+                        smooth: true
+                    }*/},
                     {label: $scope.usersArray[1].firstName},
                     {label: $scope.usersArray[0].firstName},
                     {

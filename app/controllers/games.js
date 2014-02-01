@@ -156,6 +156,7 @@ exports.show = function(req, res) {
     res.jsonp(req.game);
 };
 
+
 /**
  * List of Games
 
@@ -176,7 +177,7 @@ exports.all = function(req, res) {
  * List of Games
  */
 exports.all = function(req, res) {
-    Game.find().sort({date: 'asc'}).populate('user opponent.user', 'firstName email').exec(function(err, games) {
+    Game.find().sort({date: 'asc'}).populate('user opponent.user', 'firstName email rank').exec(function(err, games) {
         if (err) {
             res.render('error', {
                 status: 500
