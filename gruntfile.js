@@ -43,6 +43,15 @@ module.exports = function(grunt) {
                 logConcurrentOutput: true
             }
         },
+        uglify: {
+            options: {
+                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+            },
+            build: {
+                src: 'public/js/**/*.js',
+                dest: 'public/js/mean.min.js'
+            }
+        },
         mochaTest: {
             options: {
                 reporter: 'spec'
@@ -63,12 +72,16 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-env');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
     //Making grunt default to force in order not to break the project.
     grunt.option('force', true);
 
     //Default task(s).
     grunt.registerTask('default', ['jshint', 'concurrent']);
+
+    //Default task(s).
+    //grunt.registerTask('default', ['uglify']);
 
     //Test task.
     grunt.registerTask('test', ['env:test', 'mochaTest']);
