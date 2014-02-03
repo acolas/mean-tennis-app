@@ -81,7 +81,7 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['jshint', 'concurrent']);
 
     //Default task(s).
-    //grunt.registerTask('default', ['uglify']);
+    grunt.registerTask('ugly    ', ['uglify']);
 
     //Test task.
     grunt.registerTask('test', ['env:test', 'mochaTest']);
