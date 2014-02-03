@@ -149,9 +149,9 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
 
             $scope.chartOptionsDateAndScore = {
                 // Turns on animatino for all series in this plot.
-                animate: true,
+                animate: false,
                 // Will animate plot on calls to plot1.replot({resetAxes:true})
-                animateReplot: true,
+                animateReplot: false,
                 cursor: {
                     show: true,
                     zoom: true,
@@ -188,9 +188,9 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
 
             $scope.chartOptionsDateAndRank = {
                 // Turns on animatino for all series in this plot.
-                animate: true,
+                animate: false,
                 // Will animate plot on calls to plot1.replot({resetAxes:true})
-                animateReplot: true,
+                animateReplot: false,
                 cursor: {
                     show: true,
                     zoom: true,
