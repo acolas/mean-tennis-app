@@ -10,8 +10,6 @@ angular.module('mean.games').controller('GamesController', ['$scope', '$routePar
             this.victory =true;
 
         //Création et sauvegarde de l'objet jeu
-
-        console.log(this.score);
         var arrayScoreOpponent1 = [];
         var arrayScoreOpponent2 = [];
 

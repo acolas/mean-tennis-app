@@ -24,21 +24,14 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
         return result;
     };
 
-
     //on recupere les infos pour le le dashboard
     $scope.find = function () {
     $scope.gamesFiltered = [];
-        Games.query(function (games) {
-            //$scope.games = games;
-            $scope.myTotalScore = 0;
-
-            //$scope.arrayDateAndScore = [];
-            //$scope.arrayDateAndRank = [];
+        Users.query(function (users) {
+            $scope.allUsers = users;
+            Games.query(function (games) {
 
             $scope.usersArray = [];
-            $scope.user0Games = 0;
-            $scope.user1Games = 0;
-            $scope.user2Games = 0;
 
             //on recupere les infos de chaque match
             jQuery.each(games, function (index) {
@@ -84,7 +77,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                         totalScore = chart["rank_" + games[index].user.email][indexLength][1] + games[index].details.points;
                     }
                     arrayTotalScore.push(totalScore);
-                    console.log("user : " + games[index].user.email + " totalScore :  " + totalScore);
+                    //console.log("user : " + games[index].user.email + " totalScore :  " + totalScore);
 
                     chart["rank_" + games[index].user.email].push(arrayTotalScore);
                 } else {
@@ -98,7 +91,6 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                         totalScore = chart["rank_" + games[index].opponent.user.email][indexLength][1] + games[index].details.points;
                     }
                     arrayTotalScore.push(totalScore);
-                    console.log("opponent user : " + games[index].opponent.user.email + " totalScore :  " + totalScore);
 
                     chart["rank_" + games[index].opponent.user.email].push(arrayTotalScore);
                 }
@@ -107,45 +99,34 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                     $scope.gamesFiltered.push(games[index]);
                 }
 
-                if (games[index].opponent.user.firstName === "Bruno" || games[index].user.firstName === "Bruno") {
-                    $scope.user0Games++;
-                }
+                jQuery.each($scope.usersArray, function (it) {
+                    if ($scope.usersArray[it].numberOfGames == undefined) {
+                        $scope.usersArray[it].numberOfGames = 0;
+                    }
+                    if (games[index].opponent.user.firstName === $scope.usersArray[it].firstName || games[index].user.firstName === $scope.usersArray[it].firstName ) {
+                        $scope.usersArray[it].numberOfGames++;
+                        //console.log($scope.usersArray[it].firstName + " " + $scope.usersArray[it].numberOfGames)
+                    }
 
-                if (games[index].opponent.user.firstName === "Matthieu" || games[index].user.firstName === "Matthieu") {
-                    $scope.user1Games++;
-                }
-
-                if (games[index].opponent.user.firstName === "Anthony" || games[index].user.firstName === "Anthony") {
-                    $scope.user2Games++;
-                }
+                });
 
              });
 
 
-            //TODO rendre dynamique en fonction du nombre de users avec les contraintes jqplot
-
             //calcul des points + somme des valeurs pour une meme date
 
-            $scope.user0NumberOfVictories = chart[$scope.usersArray[0].email].length;
-            $scope.user1NumberOfVictories = chart[$scope.usersArray[1].email].length;
-            $scope.user2NumberOfVictories = chart[$scope.usersArray[2].email].length;
 
+                $scope.userNumberOfVictories = [];
+                $scope.chartUserResults = [];
+                $scope.chartUserRanks = [];
+                $scope.chartUserRanksScore = [];
 
-            $scope.chartUser0Results = sum(chart[$scope.usersArray[0].email]);
-            $scope.chartUser1Results = sum(chart[$scope.usersArray[1].email]);
-            $scope.chartUser2Results = sum(chart[$scope.usersArray[2].email]);
-
-            //calcul du classement (charts)
-            $scope.chartUser0Ranks = chart["rank_" + $scope.usersArray[0].email];
-            $scope.chartUser1Ranks = chart["rank_" + $scope.usersArray[1].email];
-            $scope.chartUser2Ranks = chart["rank_" + $scope.usersArray[2].email];
-
-            //calcul du classement texte
-            $scope.chartUser0RanksScore = [chart["rank_" + $scope.usersArray[0].email][chart["rank_" + $scope.usersArray[0].email].length - 1][1], $scope.usersArray[0].rank];
-            $scope.chartUser1RanksScore = [chart["rank_" + $scope.usersArray[1].email][chart["rank_" + $scope.usersArray[1].email].length - 1][1], $scope.usersArray[1].rank];
-            $scope.chartUser2RanksScore = [chart["rank_" + $scope.usersArray[2].email][chart["rank_" + $scope.usersArray[2].email].length - 1][1], $scope.usersArray[2].rank];
-
-            //FIN TODO
+            jQuery.each($scope.usersArray, function (it) {
+                $scope.usersArray[it].userNumberOfVictories = chart[$scope.usersArray[it].email].length;
+                $scope.usersArray[it].chartUserResults = sum(chart[$scope.usersArray[it].email]);
+                $scope.usersArray[it].chartUserRanks = chart["rank_" + $scope.usersArray[[it]].email];
+                $scope.usersArray[it].chartUserRanksScore = [chart["rank_" + $scope.usersArray[it].email][chart["rank_" + $scope.usersArray[it].email].length - 1][1], $scope.usersArray[it].rank];
+            });
 
             $scope.chartOptionsDateAndScore = {
                 // Turns on animatino for all series in this plot.
@@ -174,6 +155,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                     yoffset: 12        // pixel offset of the legend box from the y (or y2) axis.
                 },
                 series: [
+                    {label: $scope.usersArray[3].firstName},
                     {label: $scope.usersArray[2].firstName},
                     {label: $scope.usersArray[1].firstName},
                     {label: $scope.usersArray[0].firstName}
@@ -213,6 +195,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                     yoffset: 12        // pixel offset of the legend box from the y (or y2) axis.
                 },
                 series: [
+                    {label: $scope.usersArray[3].firstName},
                     {label: $scope.usersArray[2].firstName/*, rendererOptions: {
                         smooth: true
                     }*/},
@@ -233,6 +216,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                 }
             };
 
+        });
         });
     };
 }]);

@@ -4,11 +4,11 @@
     <p class="lead"><i class="icon-star"></i> Classement</p>
 
     <h4 class="alert alert-success">
-        <!-- TODO improve and dynamise -->
         <ol>
-            <li>Bruno <small>({{chartUser0RanksScore[1]}})</small> : {{chartUser0RanksScore[0]}} <i class="icon-thumbs-up"></i><h5>  <i class="icon-info-sign"></i> {{ user0NumberOfVictories }} victoires sur {{ user0Games }} matchs joués soit un ratio de {{ user0NumberOfVictories/user0Games | number:5 }} victoire/match</h5></li>
-            <li>Matthieu <small>({{chartUser1RanksScore[1]}})</small> : {{chartUser1RanksScore[0]}}  <h5>  <i class="icon-info-sign"></i> {{ user1NumberOfVictories }} victoires sur {{ user1Games }} matchs joués soit un ratio de {{ user1NumberOfVictories/user1Games | number:5 }} victoire/match</h5></li>
-            <li>Anthony <small>({{chartUser2RanksScore[1]}})</small> : {{chartUser2RanksScore[0]}} <i class="icon-thumbs-down"></i><h5>  <i class="icon-info-sign"></i> {{ user2NumberOfVictories }} victoires sur {{ user2Games }} matchs joués soit un ratio de {{ user2NumberOfVictories/user2Games | number:5 }} victoire/match</h5></li>
+            <li data-ng-repeat="user in usersArray">
+                {{ user.firstName }}
+                <small> {{ user.chartUserRanksScore[1] }} </small> : {{user.chartUserRanksScore[0]}} <h5>  <i class="icon-info-sign"></i> {{ user.userNumberOfVictories }} victoires sur {{ user.numberOfGames }} matchs joués soit un ratio de {{ user.userNumberOfVictories/user.numberOfGames | number:5 }} victoire/match</h5>
+            </li>
         </ol>
     </h4>
 
@@ -16,12 +16,13 @@
     <p class="lead"><i class="icon-signal"></i> Statistiques <span class="label label-warning"> En cours d'amélioration (Ajouter des options d'affichage)</span>
     </p>
 
-    <div ui-chart="[chartUser2Results, chartUser1Results, chartUser0Results]"
+    <!-- not possible with ui chart to dynamise -->
+    <div ui-chart="[usersArray[3].chartUserResults, usersArray[2].chartUserResults, usersArray[1].chartUserResults, usersArray[0].chartUserResults]"
          chart-options="chartOptionsDateAndScore"></div>
     <br/>
     <br/>
 
-    <div ui-chart="[chartUser2Ranks, chartUser1Ranks, chartUser0Ranks]" chart-options="chartOptionsDateAndRank"></div>
+    <div ui-chart="[usersArray[3].chartUserRanks, usersArray[2].chartUserRanks, usersArray[1].chartUserRanks, usersArray[0].chartUserRanks]" chart-options="chartOptionsDateAndRank"></div>
 
 
     <p class="lead"><i class="icon-user"></i> Mes 10 derniers résultats <span class="label label-warning">En cours d'amélioration (Tris et filtres)</span>
