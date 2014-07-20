@@ -7,7 +7,7 @@
     "angular": "1.0.6",
     "angular-resource": "1.0.6",
     "angular-cookies": "1.0.6",
-    "angular-bootstrap": "0.6.0",
+    "angular-bootstrap": "0.11.0",
     "angular-ui-utils": "0.0.4",
     "angular-ui-chart": "latest",
     "momentjs": "~2.5.0"

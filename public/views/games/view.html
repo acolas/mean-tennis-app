@@ -1,13 +1,24 @@
-<span class="label label-warning">En cours d'amélioration (Design et mise en page)</span>
-
 <section data-ng-controller="GamesController" data-ng-init="findOne()">
 
     <h2>Match du {{game.date | date:'dd-MM-yyyy'}}</h2>
-    <h2>{{game.user.firstName}} {{game.user.lastName}} VS {{game.opponent.user.firstName}} {{game.opponent.user.lastName}}</h2>
-    <h2>Détails du match</h2>
-    <h2>{{game.score.scoreOpponent1}} - {{game.score.scoreOpponent2}}</h2>
+    <table class="table table-striped table-bordered">
+        <thead>
+        <th>Joueur</th>
+        <th>Score</th>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td>{{game.user.firstName}}</td><td data-ng-repeat="score1 in game.score.scoreOpponent1">{{score1}}</td>
+        </tr>
+        <tr>
+            <td>{{game.opponent.user.firstName}}</td><td data-ng-repeat="score2 in game.score.scoreOpponent2">{{score2}}</td>
+        </tr>
+        </tbody>
+        </table>
+
     <h3>Type de match : {{game.details.typeOfGame}}</h3>
-    <h3>Surface : {{game.details.surface}}</h3>
+    <!--h3>Surface : {{game.details.surface}}</h3 -->
     <!--h3>Officiel ? : {{game.details.official}}</h3-->
     <h3>Nombre de points en jeu : {{game.details.points}}</h3>
     <div data-ng-show="global.user._id == game.user._id">
