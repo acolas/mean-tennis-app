@@ -150,7 +150,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                 },
                 legend: {
                     show: true,
-                    location: 'ne',     // compass direction, nw, n, ne, e, se, s, sw, w.
+                    location: 'nw',     // compass direction, nw, n, ne, e, se, s, sw, w.
                     xoffset: 12,        // pixel offset of the legend box from the x (or x2) axis.
                     yoffset: 12        // pixel offset of the legend box from the y (or y2) axis.
                 },
@@ -190,7 +190,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
                 },
                 legend: {
                     show: true,
-                    location: 'se',     // compass direction, nw, n, ne, e, se, s, sw, w.
+                    location: 'nw',     // compass direction, nw, n, ne, e, se, s, sw, w.
                     xoffset: 12,        // pixel offset of the legend box from the x (or x2) axis.
                     yoffset: 12        // pixel offset of the legend box from the y (or y2) axis.
                 },
